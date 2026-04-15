@@ -49,7 +49,26 @@ export async function PUT(request: NextRequest) {
   if (authError) return authError;
 
   try {
-    const { wineId, description, tastingNotes, image } = await request.json();
+    const {
+      wineId,
+      name,
+      description,
+      location,
+      grapeBlend,
+      category,
+      sustainability,
+      certification,
+      vegan,
+      allergens,
+      tastingNotes,
+      foodRecommendation,
+      climate,
+      terroir,
+      viticulture,
+      yields,
+      vinification,
+      image,
+    } = await request.json();
 
     if (!wineId) {
       return NextResponse.json(
@@ -59,16 +78,30 @@ export async function PUT(request: NextRequest) {
     }
 
     // Validate required fields
-    if (!description || !tastingNotes) {
+    if (!name || !description || !tastingNotes) {
       return NextResponse.json(
-        { error: "Description and tasting notes are required" },
+        { error: "Name, description, and tasting notes are required" },
         { status: 400 },
       );
     }
 
     const updateData: any = {
-      description: description.trim(),
-      tastingNotes: tastingNotes.trim(),
+      name: name?.trim(),
+      description: description?.trim(),
+      location: location?.trim(),
+      grapeBlend: grapeBlend?.trim(),
+      category,
+      sustainability: sustainability?.trim(),
+      certification: certification?.trim(),
+      vegan: Boolean(vegan),
+      allergens: Boolean(allergens),
+      tastingNotes: tastingNotes?.trim(),
+      foodRecommendation: foodRecommendation?.trim(),
+      climate: climate?.trim(),
+      terroir: terroir?.trim(),
+      viticulture: viticulture?.trim(),
+      yields: yields?.trim(),
+      vinification: vinification || {},
       updatedAt: new Date(),
     };
 

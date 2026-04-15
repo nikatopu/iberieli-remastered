@@ -41,12 +41,43 @@ export async function POST(request: NextRequest) {
     const wineId = formData.get("wineId") as string;
 
     if (!file) {
-      return NextResponse.json({ error: "No file provided" }, { status: 400 });
+      return NextResponse.json(
+        {
+          error: "No image file provided. Please select an image to upload.",
+        },
+        { status: 400 },
+      );
     }
 
     if (!wineId) {
       return NextResponse.json(
-        { error: "Wine ID is required" },
+        {
+          error:
+            "Wine ID is required for image upload. Please try editing the wine again.",
+        },
+        { status: 400 },
+      );
+    }
+
+    // Validate file type on server-side as well
+    if (!file.type.startsWith("image/")) {
+      return NextResponse.json(
+        {
+          error:
+            "Invalid file type. Please upload JPG, PNG, or WebP images only.",
+        },
+        { status: 400 },
+      );
+    }
+
+    // Validate file size (5MB max)
+    const MAX_SIZE = 5 * 1024 * 1024;
+    if (file.size > MAX_SIZE) {
+      return NextResponse.json(
+        {
+          error:
+            "Image file is too large. Please upload images smaller than 5MB.",
+        },
         { status: 400 },
       );
     }

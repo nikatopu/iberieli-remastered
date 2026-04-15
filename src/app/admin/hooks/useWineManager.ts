@@ -9,38 +9,24 @@ interface UseWineManagerReturn {
   loading: boolean;
   error: string | null;
   selectedWine: IWine | null;
-  editingDescription: string;
-  editingTastingNotes: string;
   isSaving: boolean;
   handleEditWine: (wine: IWine) => void;
-  handleSaveWine: (
-    description: string,
-    tastingNotes: string,
-    imageFile?: File,
-  ) => Promise<void>;
+  handleSaveWine: (wineData: Partial<IWine>, imageFile?: File) => Promise<void>;
   handleCancelEdit: () => void;
   refetchWines: () => Promise<void>;
 }
 
 export function useWineManager(): UseWineManagerReturn {
   const [selectedWine, setSelectedWine] = useState<IWine | null>(null);
-  const [editingDescription, setEditingDescription] = useState("");
-  const [editingTastingNotes, setEditingTastingNotes] = useState("");
   const [isSaving, setIsSaving] = useState(false);
 
   const { wines, loading, error, refetchWines } = useWines();
 
   const handleEditWine = (wine: IWine) => {
     setSelectedWine(wine);
-    setEditingDescription(wine.description);
-    setEditingTastingNotes(wine.tastingNotes);
   };
 
-  const handleSaveWine = async (
-    description: string,
-    tastingNotes: string,
-    imageFile?: File,
-  ) => {
+  const handleSaveWine = async (wineData: Partial<IWine>, imageFile?: File) => {
     if (!selectedWine) return;
 
     setIsSaving(true);
@@ -64,8 +50,7 @@ export function useWineManager(): UseWineManagerReturn {
         credentials: "include",
         body: JSON.stringify({
           wineId: selectedWine.id,
-          description: description.trim(),
-          tastingNotes: tastingNotes.trim(),
+          ...wineData,
           image: imageUrl,
         }),
       });
@@ -80,8 +65,6 @@ export function useWineManager(): UseWineManagerReturn {
 
       // Reset form state
       setSelectedWine(null);
-      setEditingDescription("");
-      setEditingTastingNotes("");
 
       // Show success message
       toast.success("Wine updated successfully!", { id: loadingToast });
@@ -100,8 +83,6 @@ export function useWineManager(): UseWineManagerReturn {
 
   const handleCancelEdit = () => {
     setSelectedWine(null);
-    setEditingDescription("");
-    setEditingTastingNotes("");
   };
 
   return {
@@ -109,8 +90,6 @@ export function useWineManager(): UseWineManagerReturn {
     loading,
     error,
     selectedWine,
-    editingDescription,
-    editingTastingNotes,
     isSaving,
     handleEditWine,
     handleSaveWine,

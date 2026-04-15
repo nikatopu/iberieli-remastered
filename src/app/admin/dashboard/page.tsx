@@ -25,6 +25,11 @@ export default function AdminDashboard() {
     refetchWines,
   } = useWineManager();
 
+  // Extract unique categories from existing wines
+  const existingCategories = Array.from(
+    new Set(wines.map((wine) => wine.category).filter(Boolean)),
+  );
+
   // Handle loading states
   if (authLoading || winesLoading) {
     return (
@@ -61,6 +66,7 @@ export default function AdminDashboard() {
                 onSave={handleSaveWine}
                 onCancel={handleCancelEdit}
                 isSaving={isSaving}
+                existingCategories={existingCategories}
               />
             ) : (
               <WineList wines={wines} onEditWine={handleEditWine} />
