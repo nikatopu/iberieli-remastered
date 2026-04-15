@@ -46,6 +46,16 @@
   }
 }
 
+.btn-ghost {
+  background-color: transparent;
+  color: var(--text-primary);
+
+  &:hover:not(:disabled) {
+    color: var(--primary-wine);
+    transform: translateY(-0.1em);
+  }
+}
+
 // Sizes
 .btn--sm {
   padding: var(--spacing-xs) var(--spacing-sm);

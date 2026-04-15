@@ -3,7 +3,7 @@ import style from "./Button.module.scss";
 interface Props {
   children: React.ReactNode;
   onClick?: () => void;
-  variant?: "primary" | "secondary" | "outline";
+  variant?: "primary" | "secondary" | "outline" | "ghost";
   size?: "sm" | "md" | "lg";
   type?: "button" | "submit" | "reset";
   disabled?: boolean;
