@@ -55,7 +55,7 @@ interface WineContextType {
   loading: boolean;
   error: string | null;
   refetchWines: () => Promise<void>;
-  getWineById: (id: string) => IWine | undefined;
+  getWineById: (id: string) => Promise<IWine | null>;
   winesByCategory: Record<string, IWine[]>;
 }
 
@@ -144,9 +144,24 @@ export function WineProvider({ children }: WineProviderProps) {
     fetchWines();
   }, []);
 
-  const getWineById = (id: string): IWine | undefined => {
-    return wines.find((wine) => wine.id === id);
-  };
+  async function getWineById(id: string): Promise<IWine | null> {
+    try {
+      const response = await fetch("/api/wines");
+
+      if (!response.ok) {
+        throw new Error("Failed to fetch wines");
+      }
+
+      const apiWines: ApiWine[] = await response.json();
+      const mappedWines = apiWines.map(mapApiWineToFrontend);
+
+      const wine = mappedWines.find((wine) => wine.id === id);
+      return wine || null;
+    } catch (err) {
+      console.error(err);
+      return null;
+    }
+  }
 
   const winesByCategory = wines.reduce(
     (acc, wine) => {

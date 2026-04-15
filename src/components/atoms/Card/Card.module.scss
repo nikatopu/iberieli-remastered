@@ -28,9 +28,4 @@
 .card--elevated {
   box-shadow: 0 0.5em 1em rgba(0, 0, 0, 0.1);
   padding: var(--spacing-lg);
-
-  &:hover {
-    transform: translateY(-0.125em);
-    box-shadow: 0 0.75em 1.5em rgba(0, 0, 0, 0.15);
-  }
 }

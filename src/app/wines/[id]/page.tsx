@@ -1,6 +1,5 @@
 "use client";
 
-import React from "react";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import Button from "@/components/atoms/Button";
@@ -8,6 +7,7 @@ import Card from "@/components/atoms/Card";
 import { useWines } from "@/contexts/AppContext";
 import { IWine } from "@/data/types";
 import style from "./page.module.scss";
+import { useEffect, useState } from "react";
 
 interface Props {
   params: Promise<{
@@ -31,16 +31,24 @@ function WineDetailSection({
 }
 
 export default function WinePage({ params }: Props) {
-  const { getWineById, loading, error } = useWines();
-  const [wineId, setWineId] = React.useState<string | null>(null);
-  const [wine, setWine] = React.useState<IWine | null>(null);
+  const { getWineById, error } = useWines();
+  const [wine, setWine] = useState<IWine | null>(null);
+  const [loading, setLoading] = useState(true);
 
-  React.useEffect(() => {
-    params.then(({ id }) => {
-      setWineId(id);
-      const foundWine = getWineById(id);
-      setWine(foundWine || null);
-    });
+  useEffect(() => {
+    async function fetchWine() {
+      try {
+        const { id } = await params;
+        const wineData = await getWineById(id);
+        setWine(wineData);
+        setLoading(false);
+      } catch (err) {
+        console.error("Error fetching wine:", err);
+        setLoading(false);
+      }
+    }
+
+    fetchWine();
   }, [params, getWineById]);
 
   if (loading) {
@@ -178,12 +186,14 @@ export default function WinePage({ params }: Props) {
         </div>
 
         <div className={style.actions}>
-          <Button size="lg">
-            <Link href="/contact">Contact for Orders</Link>
-          </Button>
-          <Button variant="outline" size="lg">
-            <Link href="/wines">View Other Wines</Link>
-          </Button>
+          <Link href="/wines">
+            <Button size="lg">Contact for Orders</Button>
+          </Link>
+          <Link href="/wines">
+            <Button variant="outline" size="lg">
+              View Other Wines
+            </Button>
+          </Link>
         </div>
       </div>
     </div>

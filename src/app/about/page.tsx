@@ -1,8 +1,8 @@
 import Card from "@/components/atoms/Card";
 import Button from "@/components/atoms/Button";
-import Link from "next/link";
 import { companyInfo } from "@/data/company";
 import style from "./page.module.scss";
+import Link from "next/link";
 
 export const metadata = {
   title: "About Us - Iberieli",
@@ -122,12 +122,15 @@ export default function AboutPage() {
               opportunities.
             </p>
             <div className={style.ctaButtons}>
-              <Button size="lg">
-                <Link href="/wines">Explore Our Wines</Link>
-              </Button>
-              <Button variant="outline" size="lg">
-                <Link href="/contact">Contact Us</Link>
-              </Button>
+              <Link href="/wines">
+                <Button size="lg">Explore Our Wines</Button>
+              </Link>
+
+              <Link href="/contact">
+                <Button variant="outline" size="lg">
+                  Contact Us
+                </Button>
+              </Link>
             </div>
           </Card>
         </section>

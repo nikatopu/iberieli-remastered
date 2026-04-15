@@ -5,9 +5,10 @@ import Button from "@/components/atoms/Button";
 import WineCard from "@/components/organisms/WineCard";
 import style from "./page.module.scss";
 import { useWines } from "@/contexts/WineContext";
+import useContextProvider from "@/hooks/useContextProvider";
 
 export default function Home() {
-  const { wines } = useWines();
+  const { wines } = useContextProvider();
   const featuredWines = wines.slice(0, 3);
 
   return (
@@ -26,12 +27,14 @@ export default function Home() {
                 and Kakheti regions
               </p>
               <div className={style.heroButtons}>
-                <Button size="lg">
-                  <Link href="/wines">Explore Our Wines</Link>
-                </Button>
-                <Button variant="outline" size="lg">
-                  <Link href="/about">About Us</Link>
-                </Button>
+                <Link href="/wines">
+                  <Button size="lg">Explore Our Wines</Button>
+                </Link>
+                <Link href="/about">
+                  <Button variant="outline" size="lg">
+                    About Us
+                  </Button>
+                </Link>
               </div>
             </div>
             <div className={style.heroImage}>
@@ -54,9 +57,11 @@ export default function Home() {
             ))}
           </div>
           <div className={style.viewAll}>
-            <Button variant="secondary" size="lg">
-              <Link href="/wines">View All Wines</Link>
-            </Button>
+            <Link href="/wines">
+              <Button variant="secondary" size="lg">
+                View All Wines
+              </Button>
+            </Link>
           </div>
         </div>
       </section>
@@ -85,9 +90,9 @@ export default function Home() {
                 authentic traditions while setting standards for natural wine
                 production.
               </p>
-              <Button variant="outline">
-                <Link href="/about">Learn More About Us</Link>
-              </Button>
+              <Link href="/about">
+                <Button variant="outline">Learn More About Us</Button>
+              </Link>
             </div>
           </div>
         </div>

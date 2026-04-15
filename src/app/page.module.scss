@@ -22,19 +22,19 @@
 
 .heroText {
   h1 {
-    font-size: 3em;
+    font-size: 2.5em;
     color: var(--primary-wine);
     margin-bottom: var(--spacing-md);
     line-height: 1.2;
 
     @media (max-width: 768px) {
-      font-size: 2.5em;
+      font-size: 2em;
     }
   }
 }
 
 .heroSubtitle {
-  font-size: 1.25em;
+  font-size: 1.1em;
   color: var(--text-secondary);
   margin-bottom: var(--spacing-md);
   font-weight: 500;
@@ -120,7 +120,7 @@
   h2 {
     color: var(--primary-wine);
     margin-bottom: var(--spacing-md);
-    font-size: 2.5em;
+    font-size: 2em;
   }
 
   p {

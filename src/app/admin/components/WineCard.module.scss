@@ -83,12 +83,3 @@
   line-height: 1.5;
   font-size: 0.95em;
 }
-
-.editButton {
-  margin-top: var(--spacing-sm);
-  font-weight: 600;
-
-  &:hover {
-    transform: translateX(2px);
-  }
-}

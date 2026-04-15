@@ -9,17 +9,17 @@
 
   h1 {
     color: var(--primary-wine);
-    font-size: 3em;
+    font-size: 2.5em;
     margin-bottom: var(--spacing-md);
 
     @media (max-width: 768px) {
-      font-size: 2.5em;
+      font-size: 2em;
     }
   }
 }
 
 .subtitle {
-  font-size: 1.125em;
+  font-size: 1.1em;
   color: var(--text-secondary);
   max-width: 600px;
   margin: 0 auto;
@@ -57,13 +57,13 @@
 .founderInfo {
   h2 {
     color: var(--primary-wine);
-    font-size: 2.5em;
+    font-size: 2em;
     margin-bottom: var(--spacing-xs);
   }
 
   .title {
     color: var(--secondary-gold);
-    font-size: 1.25em;
+    font-size: 1.1em;
     margin-bottom: var(--spacing-md);
     font-weight: 500;
   }
@@ -88,13 +88,13 @@
 .storyText {
   h2 {
     color: var(--primary-wine);
-    font-size: 2.5em;
+    font-size: 2em;
     margin-bottom: var(--spacing-md);
   }
 
   p {
     line-height: 1.6;
-    font-size: 1.1em;
+    font-size: 1em;
   }
 }
 
@@ -111,13 +111,13 @@
 
   h2 {
     color: var(--primary-wine);
-    font-size: 2em;
+    font-size: 1.75em;
     margin-bottom: var(--spacing-md);
   }
 
   p {
     line-height: 1.6;
-    font-size: 1.1em;
+    font-size: 1em;
     margin-bottom: var(--spacing-lg);
   }
 }
@@ -154,7 +154,7 @@
 
   h2 {
     color: var(--primary-wine);
-    font-size: 2.5em;
+    font-size: 2em;
     text-align: center;
     margin-bottom: var(--spacing-lg);
   }
@@ -198,12 +198,12 @@
 
     h2 {
       color: var(--primary-wine);
-      font-size: 2em;
+      font-size: 1.75em;
       margin-bottom: var(--spacing-md);
     }
 
     p {
-      font-size: 1.125em;
+      font-size: 1em;
       margin-bottom: var(--spacing-lg);
       color: var(--text-secondary);
     }
