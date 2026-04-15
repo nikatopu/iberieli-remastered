@@ -52,7 +52,7 @@ export function useWineManager(): UseWineManagerReturn {
       // Upload new image to Cloudinary if provided
       if (imageFile) {
         toast.loading("Uploading image...", { id: loadingToast });
-        imageUrl = await uploadImageToCloudinary(imageFile);
+        imageUrl = await uploadImageToCloudinary(imageFile, selectedWine.id);
       }
 
       // Update wine in database

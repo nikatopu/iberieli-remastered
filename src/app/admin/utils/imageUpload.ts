@@ -1,11 +1,19 @@
 /**
  * Uploads image to Cloudinary for wine management
  * @param file - The image file to upload
+ * @param wineId - The ID of the wine this image belongs to
  * @returns Promise with the uploaded image URL
  */
-export async function uploadImageToCloudinary(file: File): Promise<string> {
+export async function uploadImageToCloudinary(
+  file: File,
+  wineId: string,
+): Promise<string> {
   if (!file) {
     throw new Error("No file provided");
+  }
+
+  if (!wineId) {
+    throw new Error("Wine ID is required");
   }
 
   // Validate file type
@@ -21,17 +29,14 @@ export async function uploadImageToCloudinary(file: File): Promise<string> {
 
   const formData = new FormData();
   formData.append("file", file);
-  formData.append("upload_preset", "iberieli_wines"); // You'll need to set this up in Cloudinary
-  formData.append("folder", "wines"); // Optional: organize uploads in folders
+  formData.append("wineId", wineId);
 
   try {
-    const response = await fetch(
-      `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload`,
-      {
-        method: "POST",
-        body: formData,
-      },
-    );
+    const response = await fetch(`/api/admin/upload`, {
+      method: "POST",
+      body: formData,
+      credentials: "include",
+    });
 
     if (!response.ok) {
       throw new Error(`Upload failed: ${response.statusText}`);
@@ -39,11 +44,11 @@ export async function uploadImageToCloudinary(file: File): Promise<string> {
 
     const data = await response.json();
 
-    if (data.error) {
-      throw new Error(data.error.message);
+    if (!data.success) {
+      throw new Error(data.error || "Upload failed");
     }
 
-    return data.secure_url;
+    return data.url;
   } catch (error) {
     console.error("Cloudinary upload error:", error);
     throw error instanceof Error ? error : new Error("Upload failed");
