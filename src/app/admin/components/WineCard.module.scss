@@ -1,0 +1,94 @@
+.wineCard {
+  margin-bottom: 0;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  background: linear-gradient(135deg, #ffffff 0%, #fafafa 100%);
+  border: 1px solid rgba(114, 47, 55, 0.1);
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow:
+      0 1em 2em rgba(0, 0, 0, 0.15),
+      0 0.25em 0.5em rgba(0, 0, 0, 0.1);
+    border-color: rgba(114, 47, 55, 0.2);
+  }
+}
+
+.wineInfo {
+  display: flex;
+  gap: var(--spacing-lg);
+  align-items: flex-start;
+  padding: var(--spacing-md);
+}
+
+.wineImageContainer {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.wineImage {
+  width: 100px;
+  height: 120px;
+  object-fit: contain;
+  background: linear-gradient(135deg, var(--bg-secondary) 0%, #f8f9fa 100%);
+  padding: var(--spacing-sm);
+  border-radius: 0.5em;
+  border: 1px solid var(--border-light);
+}
+
+.categoryBadge {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background: var(--primary-wine);
+  color: white;
+  font-size: 0.7em;
+  font-weight: 600;
+  padding: 0.25em 0.5em;
+  border-radius: 1em;
+  text-transform: capitalize;
+  box-shadow: 0 0.125em 0.25em rgba(114, 47, 55, 0.3);
+}
+
+.wineDetails {
+  flex-grow: 1;
+  min-width: 0;
+}
+
+.wineHeader {
+  margin-bottom: var(--spacing-sm);
+}
+
+.wineDetails h3 {
+  color: var(--primary-wine);
+  margin-bottom: var(--spacing-xs);
+  font-size: 1.4em;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.grapeBlend {
+  color: var(--text-secondary);
+  font-size: 0.9em;
+  font-style: italic;
+  display: block;
+}
+
+.wineDescription {
+  color: var(--text-secondary);
+  margin: var(--spacing-md) 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  line-height: 1.5;
+  font-size: 0.95em;
+}
+
+.editButton {
+  margin-top: var(--spacing-sm);
+  font-weight: 600;
+
+  &:hover {
+    transform: translateX(2px);
+  }
+}

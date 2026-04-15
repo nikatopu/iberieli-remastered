@@ -1,0 +1,142 @@
+.homepage {
+  min-height: 100vh;
+}
+
+// Hero Section
+.hero {
+  padding: var(--spacing-xxl) 0;
+  background: linear-gradient(135deg, #f8f8f8 0%, #ffffff 100%);
+}
+
+.heroContent {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing-xl);
+  align-items: center;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-lg);
+  }
+}
+
+.heroText {
+  h1 {
+    font-size: 3em;
+    color: var(--primary-wine);
+    margin-bottom: var(--spacing-md);
+    line-height: 1.2;
+
+    @media (max-width: 768px) {
+      font-size: 2.5em;
+    }
+  }
+}
+
+.heroSubtitle {
+  font-size: 1.25em;
+  color: var(--text-secondary);
+  margin-bottom: var(--spacing-md);
+  font-weight: 500;
+}
+
+.heroButtons {
+  display: flex;
+  gap: var(--spacing-md);
+  margin-top: var(--spacing-lg);
+
+  @media (max-width: 480px) {
+    flex-direction: column;
+  }
+
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+}
+
+.heroImage {
+  text-align: center;
+
+  @media (max-width: 768px) {
+    order: -1;
+  }
+}
+
+.wineImage {
+  width: 100%;
+  height: auto;
+  max-width: 400px;
+  border-radius: 1em;
+  box-shadow: 0 1em 2em rgba(0, 0, 0, 0.1);
+}
+
+// Featured Section
+.featured {
+  padding: var(--spacing-xxl) 0;
+}
+
+.wineGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--spacing-lg);
+  margin-bottom: var(--spacing-xl);
+}
+
+.viewAll {
+  text-align: center;
+
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+}
+
+// Tradition Section
+.tradition {
+  padding: var(--spacing-xxl) 0;
+  background-color: var(--bg-secondary);
+}
+
+.traditionContent {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing-xl);
+  align-items: center;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-lg);
+  }
+}
+
+.traditionImage {
+  @media (max-width: 768px) {
+    order: -1;
+  }
+}
+
+.traditionText {
+  h2 {
+    color: var(--primary-wine);
+    margin-bottom: var(--spacing-md);
+    font-size: 2.5em;
+  }
+
+  p {
+    margin-bottom: var(--spacing-md);
+    line-height: 1.6;
+  }
+
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+}
+
+.image {
+  width: 100%;
+  height: auto;
+  border-radius: 0.5em;
+  box-shadow: 0 0.5em 1em rgba(0, 0, 0, 0.1);
+}

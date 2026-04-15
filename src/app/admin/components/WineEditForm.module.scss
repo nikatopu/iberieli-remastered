@@ -1,0 +1,151 @@
+.editForm {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.editHeader {
+  margin-bottom: var(--spacing-xl);
+}
+
+.winePreview {
+  display: flex;
+  gap: var(--spacing-lg);
+  align-items: center;
+  padding-bottom: var(--spacing-lg);
+  border-bottom: 2px solid var(--border-light);
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    text-align: center;
+  }
+}
+
+.imageContainer {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.previewImage {
+  width: 80px;
+  height: 100px;
+  object-fit: contain;
+  background: linear-gradient(135deg, var(--bg-secondary) 0%, #f8f9fa 100%);
+  padding: var(--spacing-sm);
+  border-radius: 0.5em;
+  border: 1px solid var(--border-light);
+  flex-shrink: 0;
+}
+
+.previewBadge {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background: linear-gradient(135deg, var(--primary-wine) 0%, #8b2635 100%);
+  color: white;
+  font-size: 0.7em;
+  font-weight: 600;
+  padding: 0.25em 0.5em;
+  border-radius: 1em;
+  box-shadow: 0 0.125em 0.25em rgba(114, 47, 55, 0.3);
+}
+
+.imageUpload {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.fileInput {
+  display: none;
+}
+
+.imageUploadControls {
+  display: flex;
+  gap: var(--spacing-sm);
+  align-items: center;
+}
+
+.removeButton {
+  color: var(--error-color, #e74c3c) !important;
+  border-color: var(--error-color, #e74c3c) !important;
+
+  &:hover {
+    background: var(--error-color, #e74c3c) !important;
+    color: white !important;
+  }
+}
+
+.fileInfo {
+  color: var(--text-secondary);
+  font-size: 0.85em;
+  font-weight: 600;
+}
+
+.helpText {
+  color: var(--text-secondary);
+  font-size: 0.8em;
+  font-style: italic;
+}
+
+.formGroup {
+  margin-bottom: var(--spacing-xl);
+
+  label {
+    display: block;
+    margin-bottom: var(--spacing-sm);
+    font-weight: 700;
+    color: var(--primary-wine);
+    font-size: 1.1em;
+  }
+}
+
+.charCount {
+  color: var(--text-secondary);
+  font-size: 0.85em;
+  margin-top: var(--spacing-xs);
+  display: block;
+}
+
+.textarea {
+  width: 100%;
+  padding: var(--spacing-md);
+  border: 2px solid var(--border-light);
+  border-radius: 0.5em;
+  font-size: 1em;
+  font-family: inherit;
+  line-height: 1.6;
+  resize: vertical;
+  transition: all 0.2s ease;
+
+  &:focus {
+    outline: none;
+    border-color: var(--primary-wine);
+    box-shadow: 0 0 0 3px rgba(114, 47, 55, 0.1);
+  }
+
+  &::placeholder {
+    color: var(--text-secondary);
+    opacity: 0.7;
+  }
+}
+
+.formActions {
+  display: flex;
+  gap: var(--spacing-lg);
+  justify-content: center;
+  padding-top: var(--spacing-lg);
+  border-top: 1px solid var(--border-light);
+
+  @media (max-width: 480px) {
+    flex-direction: column;
+  }
+}
+
+.saveButton {
+  font-weight: 700;
+
+  &:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
+}

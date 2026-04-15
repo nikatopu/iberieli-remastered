@@ -1,70 +1,194 @@
-# Getting Started with Create React App
+# Iberieli - Modern Wine Website
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A modern B2B wine website built with Next.js, TypeScript, and SCSS modules for Iberieli, a Georgian natural wine producer.
 
-## Available Scripts
+## Overview
 
-In the project directory, you can run:
+This website is designed specifically for B2B wine distribution, targeting importers and distributors worldwide. It showcases Iberieli's collection of authentic Georgian natural wines made using traditional Kvevri methods.
 
-### `npm start`
+## Features
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### Public Website
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- **Homepage**: Hero section with featured wines and company overview
+- **Wines Catalog**: Complete wine collection organized by categories (red, white, pink, amber)
+- **Individual Wine Pages**: Detailed wine specifications including:
+  - Tasting notes and food recommendations
+  - Climate and terroir information
+  - Viticulture and vinification details
+  - Traditional Kvevri winemaking process
+- **About Page**: Company story, founder information, and business details
+- **Contact Page**: Business contact information for orders and inquiries
+- **Responsive Design**: Mobile-friendly across all devices
 
-### `npm test`
+### Admin Panel
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- **Simple Authentication**: Password-protected admin access
+- **Wine Management**: Edit wine descriptions and tasting notes
+- **Minimal Interface**: Limited to essential editing functions only
 
-### `npm run build`
+## Technical Implementation
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Technology Stack
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- **Framework**: Next.js 16 with App Router
+- **Language**: TypeScript
+- **Styling**: SCSS Modules
+- **Components**: Atomic design (Atoms + Organisms only)
+- **Animations**: Framer Motion ready (if needed)
+- **Deployment**: Vercel-ready configuration
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Architecture
 
-### `npm run eject`
+```
+src/
+├── app/                    # Next.js App Router pages
+│   ├── page.tsx           # Homepage
+│   ├── wines/             # Wine catalog and individual wine pages
+│   ├── about/             # About page
+│   ├── contact/           # Contact page
+│   └── admin/             # Admin panel
+├── components/
+│   ├── atoms/             # Basic UI components (Button, Card)
+│   └── organisms/         # Complex components (Header, Footer, WineCard)
+├── data/                  # Data types and wine information
+├── styles/                # Global SCSS styles
+└── utils/                 # Utility functions
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### Component Patterns
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- Function declarations: `export default function ComponentName()`
+- SCSS imports: `import style from './Component.module.scss'`
+- No Next.js Image component (regular `<img>` tags)
+- TypeScript interfaces with `I` prefix (IWine, IContact)
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## Getting Started
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+### Prerequisites
 
-## Learn More
+- Node.js 18+
+- npm or yarn
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Installation
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+```bash
+# Install dependencies
+npm install
 
-### Code Splitting
+# Run development server
+npm run dev
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+# Build for production
+npm run build
 
-### Analyzing the Bundle Size
+# Start production server
+npm start
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+### Environment Setup
 
-### Making a Progressive Web App
+The website will run on `http://localhost:3000` in development mode.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+## Admin Panel Access
 
-### Advanced Configuration
+### Login Credentials
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+- **URL**: `/admin`
+- **Password**: `iberieli2024`
 
-### Deployment
+### Admin Features
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+- View all wines with current descriptions
+- Edit wine short descriptions (for wine cards)
+- Edit detailed tasting notes (for wine detail pages)
+- Changes are saved locally (in production, would integrate with database)
 
-### `npm run build` fails to minify
+**Note**: This is a simple client-side authentication for internal use. For production deployment with external access, implement proper server-side authentication.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## Wine Data Structure
+
+Each wine contains comprehensive information:
+
+- Basic details (name, location, grape varieties)
+- Sustainability and certification info
+- Detailed tasting notes and food pairings
+- Climate and terroir specifications
+- Complete vinification process details
+- High-quality wine label images
+
+## Content Management
+
+### Adding New Wines
+
+1. Add wine data to `src/data/wines.ts`
+2. Add wine label image to `public/photos/Etiquettes/`
+3. Follow the existing `IWine` interface structure
+
+### Updating Company Information
+
+- Edit `src/data/company.ts` for contact details and company story
+- Update founder information and market listings
+
+## Deployment
+
+### Vercel Deployment
+
+This project is optimized for Vercel hosting:
+
+```bash
+# Build and deploy
+npm run build
+```
+
+The website is configured for:
+
+- Automatic static generation for wine pages
+- Optimized image loading
+- SEO-friendly meta tags
+- Mobile-responsive design
+
+### Production Considerations
+
+- Images are served from `/public/photos/`
+- All wine images copied from original website
+- Georgian wine authenticity maintained
+- B2B focus with distributor contact information
+
+## Design Philosophy
+
+### B2B Focus
+
+- Clean, professional design suitable for wine distributors
+- Emphasis on product information over visual flair
+- Clear contact information and business details
+- International market presence highlighted
+
+### Georgian Wine Heritage
+
+- Traditional Kvevri winemaking emphasis
+- Authentic Georgian grape varieties featured
+- Regional terroir information included
+- Family business story preserved
+
+### Modern Web Standards
+
+- TypeScript for type safety
+- SCSS modules for maintainable styling
+- Component-based architecture
+- SEO optimization
+- Performance optimized
+
+## Content Sources
+
+All content and images migrated from the original Iberieli website, including:
+
+- Wine specifications and tasting notes
+- Company history and founder information
+- Vineyard and winemaking process photos
+- Contact and business details
+- Georgian wine authenticity and heritage
+
+---
+
+**Contact**: For technical questions about this implementation, refer to the admin panel or website content for wine-related inquiries.

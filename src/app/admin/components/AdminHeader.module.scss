@@ -1,0 +1,27 @@
+.header {
+  background: linear-gradient(135deg, var(--bg-primary) 0%, #ffffff 100%);
+  padding: var(--spacing-xl);
+  margin-bottom: var(--spacing-xl);
+  border-radius: 1em;
+  box-shadow:
+    0 0.5em 1em rgba(0, 0, 0, 0.1),
+    0 0.125em 0.25em rgba(0, 0, 0, 0.06);
+  border: 1px solid rgba(114, 47, 55, 0.1);
+}
+
+.headerContent {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  h1 {
+    color: var(--primary-wine);
+    margin: 0;
+  }
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    gap: var(--spacing-md);
+    text-align: center;
+  }
+}

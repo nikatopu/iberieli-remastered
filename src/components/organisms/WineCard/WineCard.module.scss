@@ -1,0 +1,89 @@
+.link {
+  text-decoration: none;
+  color: inherit;
+}
+
+.wineCard {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.imageContainer {
+  height: 12em;
+  overflow: hidden;
+  background-color: var(--bg-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding: var(--spacing-sm);
+}
+
+.content {
+  padding: var(--spacing-md);
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.name {
+  color: var(--primary-wine);
+  font-size: 1.25em;
+  margin-bottom: var(--spacing-xs);
+}
+
+.description {
+  color: var(--text-secondary);
+  flex-grow: 1;
+  margin-bottom: var(--spacing-sm);
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.details {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.875em;
+}
+
+.category {
+  padding: 0.25em 0.5em;
+  border-radius: 1em;
+  font-weight: 500;
+  text-transform: capitalize;
+}
+
+.category--red {
+  background-color: #ffebee;
+  color: #c62828;
+}
+
+.category--white {
+  background-color: #f3e5f5;
+  color: #6a1b9a;
+}
+
+.category--pink {
+  background-color: #fce4ec;
+  color: #ad1457;
+}
+
+.category--amber {
+  background-color: #fff8e1;
+  color: #f57f17;
+}
+
+.location {
+  color: var(--text-secondary);
+  font-style: italic;
+}

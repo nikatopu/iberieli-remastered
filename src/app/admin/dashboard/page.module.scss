@@ -1,0 +1,15 @@
+.adminDashboard {
+  min-height: 100vh;
+  background: linear-gradient(135deg, var(--bg-secondary) 0%, #f8f9fa 100%);
+  padding: var(--spacing-lg) 0;
+}
+
+.content {
+  background: linear-gradient(135deg, var(--bg-primary) 0%, #ffffff 100%);
+  border-radius: 1em;
+  padding: var(--spacing-xl);
+  box-shadow: 
+    0 0.5em 1em rgba(0, 0, 0, 0.1),
+    0 0.125em 0.25em rgba(0, 0, 0, 0.06);
+  border: 1px solid rgba(114, 47, 55, 0.1);
+}

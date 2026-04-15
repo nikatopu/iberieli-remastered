@@ -1,0 +1,67 @@
+.wineList {
+  h2 {
+    color: var(--primary-wine);
+    margin-bottom: var(--spacing-sm);
+    font-size: 2em;
+    font-weight: 700;
+  }
+}
+
+.wineListHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: var(--spacing-xl);
+  padding-bottom: var(--spacing-lg);
+  border-bottom: 2px solid var(--border-light);
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    gap: var(--spacing-md);
+  }
+}
+
+.description {
+  color: var(--text-secondary);
+  font-size: 1.1em;
+  line-height: 1.5;
+}
+
+.stats {
+  display: flex;
+  gap: var(--spacing-md);
+  align-items: center;
+}
+
+.wineCount {
+  background: linear-gradient(135deg, var(--primary-wine) 0%, #8b2635 100%);
+  color: white;
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-radius: 2em;
+  font-weight: 600;
+  font-size: 0.9em;
+  box-shadow: 0 0.125em 0.25em rgba(114, 47, 55, 0.3);
+}
+
+.noWines {
+  text-align: center;
+  padding: var(--spacing-xxl);
+  color: var(--text-secondary);
+
+  p:first-child {
+    font-size: 1.25em;
+    margin-bottom: var(--spacing-sm);
+    color: var(--primary-wine);
+  }
+}
+
+.wineGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(450px, 1fr));
+  gap: var(--spacing-xl);
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-lg);
+  }
+}

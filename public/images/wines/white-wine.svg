@@ -1,0 +1,26 @@
+<svg width="300" height="400" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="whiteBottleGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#2a4a2a;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#4a6b4a;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#2a4a2a;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="labelGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#f5f5dc;stop-opacity:0.9" />
+      <stop offset="50%" style="stop-color:#ffffff;stop-opacity:0.95" />
+      <stop offset="100%" style="stop-color:#f5f5dc;stop-opacity:0.9" />
+    </linearGradient>
+  </defs>
+  
+  <rect width="300" height="400" fill="#f8f9fa"/>
+  <path d="M120 50 L120 30 Q120 20 130 20 L170 20 Q180 20 180 30 L180 50 Q185 55 185 65 L185 360 Q185 370 175 370 L125 370 Q115 370 115 360 L115 65 Q115 55 120 50 Z" fill="url(#whiteBottleGradient)" stroke="#1a3a1a" stroke-width="2"/>
+  <rect x="135" y="20" width="30" height="30" fill="url(#whiteBottleGradient)" stroke="#1a3a1a" stroke-width="1"/>
+  <rect x="138" y="15" width="24" height="8" fill="#8b4513" stroke="#654321" stroke-width="1"/>
+  <rect x="130" y="150" width="40" height="60" fill="url(#labelGradient)" stroke="#d4af37" stroke-width="1"/>
+  <text x="150" y="170" font-family="serif" font-size="8" font-weight="bold" text-anchor="middle" fill="#722f37">IBERIELI</text>
+  <text x="150" y="180" font-family="serif" font-size="6" text-anchor="middle" fill="#722f37">WHITE WINE</text>
+  <text x="150" y="190" font-family="serif" font-size="6" text-anchor="middle" fill="#722f37">GEORGIAN</text>
+  <text x="150" y="200" font-family="serif" font-size="5" text-anchor="middle" fill="#722f37">CELLAR</text>
+  <circle cx="150" cy="120" r="15" fill="none" stroke="#228b22" stroke-width="2"/>
+  <text x="150" y="125" font-family="serif" font-size="12" font-weight="bold" text-anchor="middle" fill="#228b22">W</text>
+</svg>
