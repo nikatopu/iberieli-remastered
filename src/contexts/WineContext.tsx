@@ -9,7 +9,6 @@ import React, {
 } from "react";
 import { IWine } from "@/data/types";
 
-// API Wine interface (matches database structure)
 interface ApiWine {
   id?: number;
   wineId: string;
@@ -49,7 +48,6 @@ interface ApiWine {
   updatedAt?: Date;
 }
 
-// Wine Context Type
 interface WineContextType {
   wines: IWine[];
   loading: boolean;
@@ -61,7 +59,6 @@ interface WineContextType {
 
 const WineContext = createContext<WineContextType | undefined>(undefined);
 
-// Helper function to map API wine data to frontend interface
 function mapApiWineToFrontend(apiWine: ApiWine): IWine {
   return {
     id: apiWine.wineId,

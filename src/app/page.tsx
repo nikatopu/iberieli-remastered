@@ -4,11 +4,10 @@ import Link from "next/link";
 import Button from "@/components/atoms/Button";
 import WineCard from "@/components/organisms/WineCard";
 import style from "./page.module.scss";
-import { useWines } from "@/contexts/WineContext";
-import useContextProvider from "@/hooks/useContextProvider";
+import { useWines } from "@/contexts/AppContext";
 
 export default function Home() {
-  const { wines } = useContextProvider();
+  const { wines } = useWines();
   const featuredWines = wines.slice(0, 3);
 
   return (

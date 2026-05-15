@@ -32,12 +32,10 @@ export default function Header() {
     setIsSidebarOpen(false);
   };
 
-  // Close sidebar when route changes
   useEffect(() => {
     setIsSidebarOpen(false);
   }, [pathname]);
 
-  // Handle escape key
   useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
       if (e.key === "Escape" && isSidebarOpen) {
@@ -49,7 +47,6 @@ export default function Header() {
     return () => document.removeEventListener("keydown", handleEscape);
   }, [isSidebarOpen]);
 
-  // Prevent body scroll when sidebar is open
   useEffect(() => {
     if (isSidebarOpen) {
       document.body.style.overflow = "hidden";
@@ -104,7 +101,6 @@ export default function Header() {
         </div>
       </div>
 
-      {/* Sidebar */}
       <aside
         className={`${style.sidebar} ${isSidebarOpen ? style.sidebarOpen : ""}`}
         role="dialog"

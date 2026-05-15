@@ -23,7 +23,7 @@
   color: var(--text-secondary);
   max-width: 600px;
   margin: 0 auto;
-  line-height: 1.6;
+  line-height: 1.7;
 }
 
 .founder {
@@ -63,9 +63,11 @@
 
   .title {
     color: var(--secondary-gold);
-    font-size: 1.1em;
+    font-size: 1em;
     margin-bottom: var(--spacing-md);
     font-weight: 500;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
   }
 }
 
@@ -93,8 +95,8 @@
   }
 
   p {
-    line-height: 1.6;
-    font-size: 1em;
+    line-height: 1.7;
+    color: var(--text-secondary);
   }
 }
 
@@ -116,8 +118,8 @@
   }
 
   p {
-    line-height: 1.6;
-    font-size: 1em;
+    line-height: 1.7;
+    color: var(--text-secondary);
     margin-bottom: var(--spacing-lg);
   }
 }
@@ -131,6 +133,7 @@
   p {
     margin-bottom: var(--spacing-md);
     font-weight: 500;
+    color: var(--text-secondary);
   }
 }
 
@@ -141,12 +144,13 @@
 }
 
 .market {
-  background-color: var(--secondary-gold);
+  border: 1px solid var(--secondary-gold);
   color: var(--text-primary);
-  padding: 0.25em 0.75em;
-  border-radius: 1em;
+  padding: 0.2em 0.6em;
+  border-radius: 0.2em;
   font-size: 0.875em;
   font-weight: 500;
+  letter-spacing: 0.03em;
 }
 
 .gallery {
@@ -172,7 +176,7 @@
   p {
     margin-top: var(--spacing-sm);
     color: var(--text-secondary);
-    font-style: italic;
+    font-size: 0.875em;
   }
 }
 
@@ -180,15 +184,13 @@
   width: 100%;
   height: 200px;
   object-fit: cover;
-  border-radius: 0.5em;
-  box-shadow: 0 0.25em 0.5em rgba(0, 0, 0, 0.1);
+  border-radius: 0.25em;
 }
 
 .image {
   width: 100%;
   height: auto;
-  border-radius: 0.5em;
-  box-shadow: 0 0.25em 0.5em rgba(0, 0, 0, 0.1);
+  border-radius: 0.25em;
 }
 
 .cta {

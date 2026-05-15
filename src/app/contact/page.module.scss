@@ -23,7 +23,7 @@
   color: var(--text-secondary);
   max-width: 600px;
   margin: 0 auto;
-  line-height: 1.6;
+  line-height: 1.7;
 }
 
 .contactGrid {
@@ -51,7 +51,7 @@
   height: 200px;
   overflow: hidden;
   margin-bottom: var(--spacing-md);
-  border-radius: 0.5em;
+  border-radius: 0.25em;
   background-color: var(--bg-secondary);
   display: flex;
   align-items: center;
@@ -90,9 +90,12 @@
   }
 
   strong {
-    color: var(--primary-wine);
+    color: var(--text-secondary);
     margin-right: var(--spacing-sm);
     flex-shrink: 0;
+    font-size: 0.875em;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
   }
 
   a {
@@ -113,7 +116,8 @@
   padding: var(--spacing-sm);
   background-color: var(--bg-secondary);
   border-radius: 0.25em;
-  border-left: 4px solid var(--secondary-gold);
+  border-left: 3px solid var(--secondary-gold);
+  font-size: 0.9em;
 
   strong {
     color: var(--primary-wine);
@@ -139,9 +143,11 @@
 
 .businessItem {
   h3 {
-    color: var(--primary-wine);
+    color: var(--text-secondary);
     margin-bottom: var(--spacing-sm);
-    font-size: 1.25em;
+    font-size: 0.875em;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
   }
 
   p {
@@ -161,7 +167,8 @@
   gap: 0.25em;
 
   strong {
-    color: var(--primary-wine);
+    color: var(--text-secondary);
+    font-size: 0.875em;
   }
 }
 
@@ -187,13 +194,13 @@
 .location {
   padding: var(--spacing-lg);
   background-color: var(--bg-secondary);
-  border-radius: 0.5em;
-  border-left: 4px solid var(--secondary-gold);
+  border-radius: 0.25em;
+  border-left: 3px solid var(--secondary-gold);
 
   h3 {
     color: var(--primary-wine);
     margin-bottom: var(--spacing-sm);
-    font-size: 1.25em;
+    font-size: 1.125em;
   }
 
   > p {
@@ -206,14 +213,18 @@
 .locationDetails {
   p {
     margin-bottom: var(--spacing-xs);
+    font-size: 0.9em;
 
     &:last-child {
       margin-bottom: 0;
     }
 
     strong {
-      color: var(--primary-wine);
+      color: var(--text-secondary);
       margin-right: var(--spacing-xs);
+      font-size: 0.875em;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
     }
   }
 }

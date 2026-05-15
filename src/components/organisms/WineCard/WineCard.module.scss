@@ -34,15 +34,17 @@
 
 .name {
   color: var(--primary-wine);
-  font-size: 1.25em;
+  font-size: 1.125em;
   margin-bottom: var(--spacing-xs);
+  letter-spacing: -0.01em;
 }
 
 .description {
   color: var(--text-secondary);
   flex-grow: 1;
   margin-bottom: var(--spacing-sm);
-  line-height: 1.4;
+  line-height: 1.5;
+  font-size: 0.9em;
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
@@ -53,14 +55,15 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: 0.875em;
+  font-size: 0.8em;
 }
 
 .category {
-  padding: 0.25em 0.5em;
-  border-radius: 1em;
+  padding: 0.2em 0.5em;
+  border-radius: 0.2em;
   font-weight: 500;
   text-transform: capitalize;
+  letter-spacing: 0.03em;
 }
 
 .category--red {

@@ -23,7 +23,7 @@
   color: var(--text-secondary);
   max-width: 600px;
   margin: 0 auto;
-  line-height: 1.6;
+  line-height: 1.7;
 }
 
 .category {
@@ -32,11 +32,13 @@
 
 .categoryTitle {
   color: var(--primary-wine);
-  font-size: 2em;
+  font-size: 1.25em;
   margin-bottom: var(--spacing-lg);
   padding-bottom: var(--spacing-sm);
-  border-bottom: 2px solid var(--secondary-gold);
-  display: inline-block;
+  border-bottom: 1px solid var(--border-light);
+  display: block;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
 }
 
 .wineGrid {
@@ -65,7 +67,7 @@
 .error {
   background-color: #fee2e2;
   border: 1px solid #dc2626;
-  border-radius: var(--border-radius);
+  border-radius: 0.25em;
   color: #dc2626;
 
   p {
@@ -82,10 +84,10 @@
 }
 
 .noWines {
-  background-color: #f3f4f6;
-  border-radius: var(--border-radius);
+  background-color: var(--bg-secondary);
+  border-radius: 0.25em;
 
   p {
-    color: var(--text-muted);
+    color: var(--text-secondary);
   }
 }

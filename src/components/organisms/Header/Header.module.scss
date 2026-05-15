@@ -1,10 +1,10 @@
 .header {
-  background-color: var(--bg-primary);
   border-bottom: 1px solid var(--border-light);
   padding: var(--spacing-md) 0;
   position: sticky;
   top: 0;
   z-index: 100;
+  -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
   background-color: rgba(255, 255, 255, 0.95);
 }
@@ -32,6 +32,7 @@
 
 .logoText {
   color: var(--primary-wine);
+  letter-spacing: 0.08em;
 }
 
 .navigation {
@@ -51,36 +52,29 @@
 }
 
 .navLink {
-  color: var(--text-primary);
+  color: var(--text-secondary);
   text-decoration: none;
   font-weight: 500;
-  padding: var(--spacing-xs) var(--spacing-sm);
-  border-radius: 0.25em;
-  transition: all 0.3s ease;
+  font-size: 0.9em;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: var(--spacing-xs) 0;
+  border-bottom: 2px solid transparent;
+  transition: color 0.2s ease, border-color 0.2s ease;
 
   &:hover {
     color: var(--primary-wine);
-    background-color: var(--bg-secondary);
   }
 
   &.active {
     color: var(--primary-wine);
-    background-color: var(--bg-secondary);
+    border-bottom-color: var(--primary-wine);
   }
 }
 
 .mobileMenu {
   @media (min-width: 768px) {
     display: none;
-  }
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
   }
 }
 
@@ -95,7 +89,6 @@
   z-index: 999;
   transform: translateX(-100%);
   transition: transform 0.3s ease-out;
-  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.15);
   display: flex;
   flex-direction: column;
 
@@ -133,17 +126,13 @@
 
 .sidebarLogoText {
   color: var(--primary-wine);
+  letter-spacing: 0.08em;
 }
 
 .closeButton {
   color: var(--text-secondary);
   font-size: 1.2em;
   padding: var(--spacing-xs);
-
-  &:hover {
-    color: var(--text-primary);
-    background-color: var(--bg-secondary);
-  }
 }
 
 .sidebarNav {
@@ -159,25 +148,23 @@
 
 .sidebarNavLink {
   display: block;
-  color: var(--text-primary);
+  color: var(--text-secondary);
   text-decoration: none;
   padding: var(--spacing-md) var(--spacing-lg);
   font-weight: 500;
-  border-bottom: 1px solid transparent;
-  transition: all 0.2s ease;
+  font-size: 0.9em;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  border-bottom: 1px solid var(--border-light);
+  transition: color 0.2s ease;
 
   &:hover {
-    background-color: var(--bg-secondary);
     color: var(--primary-wine);
-  }
-
-  &:active {
-    background-color: var(--bg-hover);
   }
 }
 
 .sidebarNavLinkActive {
-  background-color: var(--bg-secondary);
   color: var(--primary-wine);
-  border-left: 3px solid var(--primary-wine);
+  border-left: 2px solid var(--primary-wine);
+  padding-left: calc(var(--spacing-lg) - 2px);
 }

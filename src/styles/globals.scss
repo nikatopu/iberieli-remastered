@@ -1,6 +1,4 @@
-/* Global Variables */
 :root {
-  /* Colors */
   --primary-wine: #722f37;
   --secondary-gold: #d4af37;
   --text-primary: #2c2c2c;
@@ -12,11 +10,9 @@
   --border-light: #e0e0e0;
   --border-dark: #333333;
 
-  /* Typography */
   --font-primary: var(--font-josefin), "Josefin Sans", sans-serif;
   --font-secondary: var(--font-montserrat), "Montserrat", sans-serif;
 
-  /* Spacing */
   --spacing-xs: 0.25em;
   --spacing-sm: 0.5em;
   --spacing-md: 1em;
@@ -24,12 +20,10 @@
   --spacing-xl: 2em;
   --spacing-xxl: 3em;
 
-  /* Container */
   --container-max-width: 1200px;
   --content-max-width: 800px;
 }
 
-/* Reset and Base Styles */
 * {
   box-sizing: border-box;
   margin: 0;
@@ -50,7 +44,6 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Typography */
 h1,
 h2,
 h3,
@@ -61,6 +54,7 @@ h6 {
   font-weight: 600;
   line-height: 1.3;
   margin-bottom: var(--spacing-sm);
+  letter-spacing: -0.02em;
 }
 
 h1 {
@@ -82,14 +76,13 @@ p {
 a {
   color: var(--primary-wine);
   text-decoration: none;
-  transition: color 0.3s ease;
+  transition: color 0.2s ease;
 }
 
 a:hover {
   color: var(--secondary-gold);
 }
 
-/* Utility Classes */
 .container {
   max-width: var(--container-max-width);
   margin: 0 auto;
@@ -133,7 +126,6 @@ a:hover {
   margin-top: var(--spacing-lg);
 }
 
-/* Button Reset */
 button {
   border: none;
   background: none;
@@ -141,14 +133,12 @@ button {
   cursor: pointer;
 }
 
-/* Image Reset */
 img {
   max-width: 100%;
   height: auto;
   display: block;
 }
 
-/* List Reset */
 ul,
 ol {
   list-style: none;

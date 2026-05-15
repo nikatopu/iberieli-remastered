@@ -2,10 +2,9 @@
   min-height: 100vh;
 }
 
-// Hero Section
 .hero {
   padding: var(--spacing-xxl) 0;
-  background: linear-gradient(135deg, #f8f8f8 0%, #ffffff 100%);
+  background-color: var(--bg-secondary);
 }
 
 .heroContent {
@@ -25,7 +24,7 @@
     font-size: 2.5em;
     color: var(--primary-wine);
     margin-bottom: var(--spacing-md);
-    line-height: 1.2;
+    line-height: 1.15;
 
     @media (max-width: 768px) {
       font-size: 2em;
@@ -37,7 +36,7 @@
   font-size: 1.1em;
   color: var(--text-secondary);
   margin-bottom: var(--spacing-md);
-  font-weight: 500;
+  font-weight: 400;
 }
 
 .heroButtons {
@@ -67,11 +66,9 @@
   width: 100%;
   height: auto;
   max-width: 400px;
-  border-radius: 1em;
-  box-shadow: 0 1em 2em rgba(0, 0, 0, 0.1);
+  border-radius: 0.25em;
 }
 
-// Featured Section
 .featured {
   padding: var(--spacing-xxl) 0;
 }
@@ -92,7 +89,6 @@
   }
 }
 
-// Tradition Section
 .tradition {
   padding: var(--spacing-xxl) 0;
   background-color: var(--bg-secondary);
@@ -125,7 +121,8 @@
 
   p {
     margin-bottom: var(--spacing-md);
-    line-height: 1.6;
+    line-height: 1.7;
+    color: var(--text-secondary);
   }
 
   a {
@@ -137,6 +134,5 @@
 .image {
   width: 100%;
   height: auto;
-  border-radius: 0.5em;
-  box-shadow: 0 0.5em 1em rgba(0, 0, 0, 0.1);
+  border-radius: 0.25em;
 }
