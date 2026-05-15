@@ -186,7 +186,7 @@ export default function WinePage({ params }: Props) {
         </div>
 
         <div className={style.actions}>
-          <Link href="/wines">
+          <Link href="/contact">
             <Button size="lg">Contact for Orders</Button>
           </Link>
           <Link href="/wines">

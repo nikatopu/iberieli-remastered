@@ -16,7 +16,16 @@ export default function ContactPage() {
           <h1>Contact Us</h1>
           <p className={style.subtitle}>
             We work with wine importers and dealers worldwide. Contact us for
-            business inquiries and wine orders.
+            business inquiries and wine orders. For retail in Georgia, please
+            visit our online store{" "}
+            <a
+              href="https://topuridzewinery.ge/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              https://topuridzewinery.ge/
+            </a>
+            .
           </p>
         </header>
 
