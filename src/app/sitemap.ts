@@ -10,7 +10,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     .where(eq(wines.visible, true));
 
   const wineUrls: MetadataRoute.Sitemap = visibleWines.map((wine) => ({
-    url: `https://iberieli.com/wines/${wine.wineId}`,
+    url: `https://www.iberieli.com/wines/${wine.wineId}`,
     lastModified: wine.updatedAt ?? new Date(),
     changeFrequency: "monthly",
     priority: 0.8,
@@ -18,25 +18,25 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   return [
     {
-      url: "https://iberieli.com",
+      url: "https://www.iberieli.com",
       lastModified: new Date(),
       changeFrequency: "weekly",
       priority: 1,
     },
     {
-      url: "https://iberieli.com/wines",
+      url: "https://www.iberieli.com/wines",
       lastModified: new Date(),
       changeFrequency: "weekly",
       priority: 0.9,
     },
     {
-      url: "https://iberieli.com/about",
+      url: "https://www.iberieli.com/about",
       lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 0.7,
     },
     {
-      url: "https://iberieli.com/contact",
+      url: "https://www.iberieli.com/contact",
       lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 0.7,

@@ -9,6 +9,6 @@ export default function robots(): MetadataRoute.Robots {
         disallow: ["/admin", "/api"],
       },
     ],
-    sitemap: "https://iberieli.com/sitemap.xml",
+    sitemap: "https://www.iberieli.com/sitemap.xml",
   };
 }

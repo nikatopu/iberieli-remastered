@@ -2,7 +2,7 @@
 
 A full-stack B2B website for **Iberieli LLC**, a family-owned Georgian winery producing authentic natural wines using traditional Kvevri methods. Built with Next.js 16 App Router, fully server-rendered for SEO, with a custom admin panel for wine catalogue management.
 
-**Live site:** [iberieli.com](https://iberieli.com)
+**Live site:** [iberieli.com](https://www.iberieli.com)
 
 ---
 

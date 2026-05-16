@@ -17,7 +17,7 @@ const montserrat = Montserrat({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://iberieli.com"),
+  metadataBase: new URL("https://www.iberieli.com"),
   title: {
     default: "Iberieli — Authentic Georgian Natural Wines",
     template: "%s | Iberieli",
@@ -50,7 +50,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://iberieli.com",
+    url: "https://www.iberieli.com",
     siteName: "Iberieli",
     title: "Iberieli — Authentic Georgian Natural Wines",
     description:
@@ -78,12 +78,12 @@ const jsonLd = {
   "@graph": [
     {
       "@type": "Organization",
-      "@id": "https://iberieli.com/#organization",
+      "@id": "https://www.iberieli.com/#organization",
       name: "Iberieli LLC",
-      url: "https://iberieli.com",
+      url: "https://www.iberieli.com",
       logo: {
         "@type": "ImageObject",
-        url: "https://iberieli.com/photos/Iberieli Logo.webp",
+        url: "https://www.iberieli.com/photos/Iberieli Logo.webp",
       },
       description:
         "Family-owned Georgian winery producing authentic natural wines using traditional Kvevri methods.",
@@ -107,11 +107,11 @@ const jsonLd = {
     },
     {
       "@type": "WebSite",
-      "@id": "https://iberieli.com/#website",
-      url: "https://iberieli.com",
+      "@id": "https://www.iberieli.com/#website",
+      url: "https://www.iberieli.com",
       name: "Iberieli",
       description: "Authentic Georgian natural wines",
-      publisher: { "@id": "https://iberieli.com/#organization" },
+      publisher: { "@id": "https://www.iberieli.com/#organization" },
     },
   ],
 };

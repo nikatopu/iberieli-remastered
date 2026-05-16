@@ -10,10 +10,8 @@ export const metadata = {
     title: "Contact Us | Iberieli",
     description:
       "Contact Iberieli for wine orders and business inquiries. We work with wine importers and distributors worldwide.",
-    url: "https://iberieli.com/contact",
-    images: [
-      { url: "/photos/red wine.webp", alt: "Iberieli Wine Orders" },
-    ],
+    url: "https://www.iberieli.com/contact",
+    images: [{ url: "/photos/red wine.webp", alt: "Iberieli Wine Orders" }],
   },
   twitter: {
     card: "summary_large_image",
@@ -22,7 +20,7 @@ export const metadata = {
       "Contact Iberieli for wine orders and business inquiries. We work with wine importers and distributors worldwide.",
     images: ["/photos/red wine.webp"],
   },
-  alternates: { canonical: "https://iberieli.com/contact" },
+  alternates: { canonical: "https://www.iberieli.com/contact" },
 };
 
 export default function ContactPage() {

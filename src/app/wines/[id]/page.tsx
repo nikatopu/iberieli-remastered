@@ -38,7 +38,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     openGraph: {
       title: `${wine.name} | Iberieli`,
       description,
-      url: `https://iberieli.com/wines/${wine.id}`,
+      url: `https://www.iberieli.com/wines/${wine.id}`,
       images: [{ url: wine.image, alt: wine.name }],
     },
     twitter: {
@@ -47,7 +47,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       description,
       images: [wine.image],
     },
-    alternates: { canonical: `https://iberieli.com/wines/${wine.id}` },
+    alternates: { canonical: `https://www.iberieli.com/wines/${wine.id}` },
   };
 }
 
@@ -79,7 +79,7 @@ export default async function WinePage({ params }: Props) {
     description: wine.description,
     image: wine.image.startsWith("http")
       ? wine.image
-      : `https://iberieli.com${wine.image}`,
+      : `https://www.iberieli.com${wine.image}`,
     brand: { "@type": "Brand", name: "Iberieli" },
     offers: {
       "@type": "Offer",

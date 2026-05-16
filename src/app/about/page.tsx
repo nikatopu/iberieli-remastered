@@ -12,7 +12,7 @@ export const metadata = {
     title: "About Us | Iberieli",
     description:
       "Learn about Zurab Topuridze and the family behind Iberieli, producers of authentic Georgian natural wines using traditional Kvevri methods.",
-    url: "https://iberieli.com/about",
+    url: "https://www.iberieli.com/about",
     images: [
       {
         url: "/photos/zurab topuridze.webp",
@@ -27,7 +27,7 @@ export const metadata = {
       "Learn about Zurab Topuridze and the family behind Iberieli, producers of authentic Georgian natural wines.",
     images: ["/photos/zurab topuridze.webp"],
   },
-  alternates: { canonical: "https://iberieli.com/about" },
+  alternates: { canonical: "https://www.iberieli.com/about" },
 };
 
 export default function AboutPage() {

@@ -15,7 +15,7 @@ export const metadata: Metadata = {
     title: "Wine Collection | Iberieli",
     description:
       "Explore Iberieli's full collection of authentic Georgian natural wines crafted using traditional Kvevri methods.",
-    url: "https://iberieli.com/wines",
+    url: "https://www.iberieli.com/wines",
     images: [{ url: "/photos/Wines 1.webp", alt: "Iberieli Wine Collection" }],
   },
   twitter: {
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
       "Explore Iberieli's full collection of authentic Georgian natural wines crafted using traditional Kvevri methods.",
     images: ["/photos/Wines 1.webp"],
   },
-  alternates: { canonical: "https://iberieli.com/wines" },
+  alternates: { canonical: "https://www.iberieli.com/wines" },
 };
 
 export default async function WinesPage() {
