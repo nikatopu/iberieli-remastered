@@ -1,15 +1,16 @@
 .wineCard {
-  margin-bottom: 0;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  background: linear-gradient(135deg, #ffffff 0%, #fafafa 100%);
-  border: 1px solid rgba(114, 47, 55, 0.1);
+  border: 1px solid var(--border-light);
+  border-radius: 0.25em;
+  background: var(--bg-primary);
+  overflow: hidden;
+  transition: border-color 0.2s ease;
 
   &:hover {
-    transform: translateY(-4px);
-    box-shadow:
-      0 1em 2em rgba(0, 0, 0, 0.15),
-      0 0.25em 0.5em rgba(0, 0, 0, 0.1);
-    border-color: rgba(114, 47, 55, 0.2);
+    border-color: var(--primary-wine);
+  }
+
+  &.hidden {
+    opacity: 0.5;
   }
 }
 
@@ -18,6 +19,12 @@
   gap: var(--spacing-lg);
   align-items: flex-start;
   padding: var(--spacing-md);
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
 }
 
 .wineImageContainer {
@@ -26,27 +33,27 @@
 }
 
 .wineImage {
-  width: 100px;
-  height: 120px;
+  width: 80px;
+  height: 100px;
   object-fit: contain;
-  background: linear-gradient(135deg, var(--bg-secondary) 0%, #f8f9fa 100%);
-  padding: var(--spacing-sm);
-  border-radius: 0.5em;
+  background: var(--bg-secondary);
+  padding: var(--spacing-xs);
+  border-radius: 0.25em;
   border: 1px solid var(--border-light);
 }
 
 .categoryBadge {
   position: absolute;
-  top: -8px;
-  right: -8px;
+  top: -6px;
+  right: -6px;
   background: var(--primary-wine);
   color: white;
   font-size: 0.7em;
   font-weight: 600;
-  padding: 0.25em 0.5em;
-  border-radius: 1em;
+  padding: 0.2em 0.5em;
+  border-radius: 0.2em;
   text-transform: capitalize;
-  box-shadow: 0 0.125em 0.25em rgba(114, 47, 55, 0.3);
+  letter-spacing: 0.03em;
 }
 
 .wineDetails {
@@ -61,25 +68,80 @@
 .wineDetails h3 {
   color: var(--primary-wine);
   margin-bottom: var(--spacing-xs);
-  font-size: 1.4em;
-  font-weight: 700;
-  line-height: 1.2;
+  font-size: 1.125em;
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
 }
 
 .grapeBlend {
   color: var(--text-secondary);
-  font-size: 0.9em;
+  font-size: 0.875em;
   font-style: italic;
   display: block;
 }
 
 .wineDescription {
   color: var(--text-secondary);
-  margin: var(--spacing-md) 0;
+  margin: 0;
   display: -webkit-box;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
   line-height: 1.5;
-  font-size: 0.95em;
+  font-size: 0.875em;
+}
+
+.cardFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--spacing-xs) var(--spacing-md);
+  border-top: 1px solid var(--border-light);
+  background: var(--bg-secondary);
+}
+
+.visibilityToggle {
+  display: flex;
+  align-items: center;
+  gap: 0.4em;
+  padding: 0.25em 0.6em;
+  border-radius: 0.2em;
+  font-size: 0.8em;
+  font-weight: 600;
+  font-family: var(--font-secondary);
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: background-color 0.2s ease, color 0.2s ease;
+  letter-spacing: 0.03em;
+
+  &.visibleOn {
+    background: #dcfce7;
+    color: #166534;
+    border-color: #bbf7d0;
+
+    &:hover {
+      background: #bbf7d0;
+    }
+  }
+
+  &.visibleOff {
+    background: var(--bg-secondary);
+    color: var(--text-secondary);
+    border-color: var(--border-light);
+
+    &:hover {
+      background: var(--border-light);
+    }
+  }
+}
+
+.toggleIcon {
+  font-size: 0.7em;
+}
+
+.editHint {
+  font-size: 0.75em;
+  color: var(--text-secondary);
+  font-style: italic;
 }

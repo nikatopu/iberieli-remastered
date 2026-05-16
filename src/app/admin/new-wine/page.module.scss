@@ -1,95 +1,42 @@
-.editForm {
-  max-width: 900px;
-  margin: 0 auto;
+.page {
+  min-height: 100vh;
+  background: var(--bg-secondary);
+  padding: var(--spacing-lg) 0 var(--spacing-xxl);
 }
 
-.editHeader {
+.pageHeader {
   margin-bottom: var(--spacing-xl);
 }
 
-.winePreview {
-  display: flex;
-  gap: var(--spacing-lg);
-  align-items: center;
-  padding-bottom: var(--spacing-lg);
-  border-bottom: 1px solid var(--border-light);
-
-  @media (max-width: 768px) {
-    flex-direction: column;
-    text-align: center;
-  }
-}
-
-.imageContainer {
-  position: relative;
-  flex-shrink: 0;
-}
-
-.previewImage {
-  width: 80px;
-  height: 100px;
-  object-fit: contain;
-  background: var(--bg-secondary);
-  padding: var(--spacing-sm);
-  border-radius: 0.25em;
-  border: 1px solid var(--border-light);
-}
-
-.previewBadge {
-  position: absolute;
-  top: -6px;
-  right: -6px;
-  background: var(--primary-wine);
-  color: white;
-  font-size: 0.7em;
-  font-weight: 600;
-  padding: 0.2em 0.5em;
-  border-radius: 0.2em;
-}
-
-.grapeInfo {
+.backLink {
+  display: inline-block;
   color: var(--text-secondary);
-  font-size: 0.9em;
-  font-style: italic;
-  margin: 0;
-}
-
-.imageUpload {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-sm);
-}
-
-.fileInput {
-  display: none;
-}
-
-.imageUploadControls {
-  display: flex;
-  gap: var(--spacing-sm);
-  align-items: center;
-}
-
-.removeButton {
-  color: #dc2626 !important;
-  border-color: #dc2626 !important;
+  font-size: 0.875em;
+  letter-spacing: 0.03em;
+  margin-bottom: var(--spacing-md);
+  text-decoration: none;
+  transition: color 0.2s ease;
 
   &:hover {
-    background: #dc2626 !important;
-    color: white !important;
+    color: var(--primary-wine);
   }
 }
 
-.fileInfo {
-  color: var(--text-secondary);
-  font-size: 0.85em;
-  font-weight: 600;
+.pageTitle {
+  color: var(--primary-wine);
+  font-size: 2em;
+  letter-spacing: -0.02em;
+  margin-bottom: var(--spacing-xs);
 }
 
-.helpText {
+.pageSubtitle {
   color: var(--text-secondary);
-  font-size: 0.8em;
-  font-style: italic;
+  font-size: 0.95em;
+}
+
+.formWrap {
+  max-width: 900px;
+  margin: 0 auto;
 }
 
 .form {
@@ -240,11 +187,6 @@
   height: 1.1em;
   cursor: pointer;
   accent-color: var(--primary-wine);
-
-  &:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
-  }
 }
 
 .checkboxLabel {
@@ -322,13 +264,56 @@
   }
 }
 
-.sublabel {
-  display: block;
+.imagePreview {
+  margin-bottom: var(--spacing-md);
+  display: inline-block;
+}
+
+.previewImg {
+  width: 100px;
+  height: 120px;
+  object-fit: contain;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-light);
+  border-radius: 0.25em;
+  padding: var(--spacing-xs);
+}
+
+.imageUpload {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.fileInput {
+  display: none;
+}
+
+.imageUploadControls {
+  display: flex;
+  gap: var(--spacing-sm);
+  align-items: center;
+}
+
+.removeButton {
+  color: #dc2626 !important;
+  border-color: #dc2626 !important;
+
+  &:hover {
+    background: #dc2626 !important;
+    color: white !important;
+  }
+}
+
+.fileInfo {
   color: var(--text-secondary);
-  font-size: 0.875em;
-  font-weight: normal;
-  margin-top: 0.25em;
-  margin-bottom: var(--spacing-xs);
+  font-size: 0.85em;
+  font-weight: 600;
+}
+
+.helpText {
+  color: var(--text-secondary);
+  font-size: 0.8em;
   font-style: italic;
 }
 
@@ -342,75 +327,13 @@
   @media (max-width: 480px) {
     flex-direction: column;
   }
+
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
 }
 
 .saveButton {
   font-weight: 600;
-}
-
-.dangerZone {
-  border: 1px solid #fca5a5;
-  border-radius: 0.25em;
-  padding: var(--spacing-lg);
-  background: #fff5f5;
-}
-
-.dangerTitle {
-  color: #dc2626;
-  font-size: 0.875em;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  margin-bottom: var(--spacing-md);
-  padding-bottom: var(--spacing-sm);
-  border-bottom: 1px solid #fca5a5;
-}
-
-.dangerContent {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: var(--spacing-lg);
-
-  @media (max-width: 480px) {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-}
-
-.dangerLabel {
-  font-weight: 600;
-  color: var(--text-primary);
-  font-size: 0.95em;
-  margin-bottom: 0.25em;
-}
-
-.dangerHint {
-  color: var(--text-secondary);
-  font-size: 0.875em;
-  margin: 0;
-}
-
-.deleteButton {
-  flex-shrink: 0;
-  padding: var(--spacing-sm) var(--spacing-lg);
-  background: transparent;
-  color: #dc2626;
-  border: 1px solid #dc2626;
-  border-radius: 0.25em;
-  font-family: var(--font-secondary);
-  font-size: 0.9em;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background-color 0.2s ease, color 0.2s ease;
-
-  &:hover:not(:disabled) {
-    background: #dc2626;
-    color: white;
-  }
-
-  &:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-  }
 }

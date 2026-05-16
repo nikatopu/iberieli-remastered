@@ -30,6 +30,7 @@ export interface IWine {
   };
   image: string;
   category: "red" | "white" | "pink" | "amber";
+  visible: boolean;
 }
 
 export interface ICompanyInfo {

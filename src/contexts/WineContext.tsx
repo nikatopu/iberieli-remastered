@@ -44,6 +44,7 @@ interface ApiWine {
   };
   image: string;
   category: string;
+  visible: boolean;
   createdAt?: Date;
   updatedAt?: Date;
 }
@@ -98,6 +99,7 @@ function mapApiWineToFrontend(apiWine: ApiWine): IWine {
     },
     image: apiWine.image,
     category: apiWine.category as "red" | "white" | "pink" | "amber",
+    visible: apiWine.visible ?? true,
   };
 }
 

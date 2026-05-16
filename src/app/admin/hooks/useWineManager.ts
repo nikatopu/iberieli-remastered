@@ -1,8 +1,45 @@
-import { useState } from "react";
+import { useState, useEffect, useCallback } from "react";
 import toast from "react-hot-toast";
-import { useWines } from "@/contexts/AppContext";
 import { IWine } from "@/data/types";
 import { uploadImageToCloudinary } from "../utils/imageUpload";
+
+function mapApiWine(apiWine: Record<string, unknown>): IWine {
+  const vin = (apiWine.vinification as Record<string, string>) || {};
+  return {
+    id: apiWine.wineId as string,
+    name: apiWine.name as string,
+    description: apiWine.description as string,
+    location: apiWine.location as string,
+    grapeBlend: apiWine.grapeBlend as string,
+    sustainability: apiWine.sustainability as string,
+    certification: apiWine.certification as string,
+    vegan: Boolean(apiWine.vegan),
+    allergens: Boolean(apiWine.allergens),
+    tastingNotes: apiWine.tastingNotes as string,
+    foodRecommendation: apiWine.foodRecommendation as string,
+    climate: apiWine.climate as string,
+    terroir: apiWine.terroir as string,
+    viticulture: apiWine.viticulture as string,
+    yields: apiWine.yields as string,
+    vinification: {
+      harvest: vin.harvest || "",
+      processing: vin.processing || "",
+      fermentation: vin.fermentation || "",
+      fermentationTime: vin.fermentationTime || "",
+      fermentationVessel: vin.fermentationVessel || "",
+      maceration: vin.maceration || "",
+      macerationVessel: vin.macerationVessel || "",
+      maturationTime: vin.maturationTime || vin.aging || "",
+      maturationVessel: vin.maturationVessel || "",
+      filtration: vin.filtration || "",
+      fining: vin.fining || "",
+      sulphur: vin.sulphur || "",
+    },
+    image: apiWine.image as string,
+    category: apiWine.category as "red" | "white" | "pink" | "amber",
+    visible: apiWine.visible !== false,
+  };
+}
 
 interface UseWineManagerReturn {
   wines: IWine[];
@@ -13,14 +50,38 @@ interface UseWineManagerReturn {
   handleEditWine: (wine: IWine) => void;
   handleSaveWine: (wineData: Partial<IWine>, imageFile?: File) => Promise<void>;
   handleCancelEdit: () => void;
+  handleDeleteWine: (wineId: string) => Promise<void>;
+  handleToggleVisible: (wineId: string, visible: boolean) => Promise<void>;
   refetchWines: () => Promise<void>;
 }
 
 export function useWineManager(): UseWineManagerReturn {
+  const [wines, setWines] = useState<IWine[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const [selectedWine, setSelectedWine] = useState<IWine | null>(null);
   const [isSaving, setIsSaving] = useState(false);
 
-  const { wines, loading, error, refetchWines } = useWines();
+  const fetchWines = useCallback(async () => {
+    try {
+      setLoading(true);
+      setError(null);
+      const response = await fetch("/api/admin/wines", {
+        credentials: "include",
+      });
+      if (!response.ok) throw new Error("Failed to fetch wines");
+      const apiWines = await response.json();
+      setWines(apiWines.map(mapApiWine));
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Error loading wines");
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    fetchWines();
+  }, [fetchWines]);
 
   const handleEditWine = (wine: IWine) => {
     setSelectedWine(wine);
@@ -30,23 +91,19 @@ export function useWineManager(): UseWineManagerReturn {
     if (!selectedWine) return;
 
     setIsSaving(true);
-    const loadingToast = toast.loading("Saving wine changes...");
+    const loadingToast = toast.loading("Saving changes...");
 
     try {
-      let imageUrl = selectedWine.image; // Keep existing image by default
+      let imageUrl = selectedWine.image;
 
-      // Upload new image to Cloudinary if provided
       if (imageFile) {
         toast.loading("Uploading image...", { id: loadingToast });
         imageUrl = await uploadImageToCloudinary(imageFile, selectedWine.id);
       }
 
-      // Update wine in database
-      const response = await fetch(`/api/admin/wines`, {
+      const response = await fetch("/api/admin/wines", {
         method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         credentials: "include",
         body: JSON.stringify({
           wineId: selectedWine.id,
@@ -60,24 +117,70 @@ export function useWineManager(): UseWineManagerReturn {
         throw new Error(errorData.error || "Failed to update wine");
       }
 
-      // Refresh the wine data from the database
-      await refetchWines();
-
-      // Reset form state
+      await fetchWines();
       setSelectedWine(null);
-
-      // Show success message
       toast.success("Wine updated successfully!", { id: loadingToast });
-    } catch (error) {
-      console.error("Error saving wine:", error);
-      const errorMessage =
-        error instanceof Error
-          ? error.message
-          : "Failed to save wine. Please try again.";
-      toast.error(errorMessage, { id: loadingToast });
-      throw error;
+    } catch (err) {
+      const message =
+        err instanceof Error ? err.message : "Failed to save wine";
+      toast.error(message, { id: loadingToast });
+      throw err;
     } finally {
       setIsSaving(false);
+    }
+  };
+
+  const handleDeleteWine = async (wineId: string) => {
+    const loadingToast = toast.loading("Deleting wine...");
+
+    try {
+      const response = await fetch(
+        `/api/admin/wines?wineId=${encodeURIComponent(wineId)}`,
+        {
+          method: "DELETE",
+          credentials: "include",
+        },
+      );
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || "Failed to delete wine");
+      }
+
+      await fetchWines();
+      setSelectedWine(null);
+      toast.success("Wine deleted successfully.", { id: loadingToast });
+    } catch (err) {
+      const message =
+        err instanceof Error ? err.message : "Failed to delete wine";
+      toast.error(message, { id: loadingToast });
+      throw err;
+    }
+  };
+
+  const handleToggleVisible = async (wineId: string, visible: boolean) => {
+    try {
+      const response = await fetch("/api/admin/wines", {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+        body: JSON.stringify({ wineId, visible }),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || "Failed to update visibility");
+      }
+
+      setWines((prev) =>
+        prev.map((w) => (w.id === wineId ? { ...w, visible } : w)),
+      );
+
+      toast.success(visible ? "Wine is now visible." : "Wine is now hidden.");
+    } catch (err) {
+      const message =
+        err instanceof Error ? err.message : "Failed to update visibility";
+      toast.error(message);
     }
   };
 
@@ -94,6 +197,8 @@ export function useWineManager(): UseWineManagerReturn {
     handleEditWine,
     handleSaveWine,
     handleCancelEdit,
-    refetchWines,
+    handleDeleteWine,
+    handleToggleVisible,
+    refetchWines: fetchWines,
   };
 }

@@ -1,17 +1,20 @@
-import Button from "@/components/atoms/Button";
-import Card from "@/components/atoms/Card";
 import { IWine } from "@/data/types";
 import styles from "./WineCard.module.scss";
 
 interface WineCardProps {
   wine: IWine;
   onEdit: (wine: IWine) => void;
+  onToggleVisible: (wineId: string, visible: boolean) => Promise<void>;
 }
 
-export default function WineCard({ wine, onEdit }: WineCardProps) {
+export default function WineCard({
+  wine,
+  onEdit,
+  onToggleVisible,
+}: WineCardProps) {
   return (
-    <Card variant="wine" className={styles.wineCard}>
-      <button className={styles.wineInfo} onClick={() => onEdit(wine)}>
+    <div className={`${styles.wineCard} ${!wine.visible ? styles.hidden : ""}`}>
+      <button type="button" className={styles.wineInfo} onClick={() => onEdit(wine)}>
         <div className={styles.wineImageContainer}>
           <img src={wine.image} alt={wine.name} className={styles.wineImage} />
           <span className={styles.categoryBadge}>{wine.category}</span>
@@ -24,6 +27,21 @@ export default function WineCard({ wine, onEdit }: WineCardProps) {
           <p className={styles.wineDescription}>{wine.description}</p>
         </div>
       </button>
-    </Card>
+
+      <div className={styles.cardFooter}>
+        <button
+          type="button"
+          className={`${styles.visibilityToggle} ${wine.visible ? styles.visibleOn : styles.visibleOff}`}
+          onClick={() => onToggleVisible(wine.id, !wine.visible)}
+          title={wine.visible ? "Hide from public website" : "Show on public website"}
+        >
+          <span className={styles.toggleIcon}>
+            {wine.visible ? "●" : "○"}
+          </span>
+          {wine.visible ? "Visible" : "Hidden"}
+        </button>
+        <span className={styles.editHint}>Click card to edit →</span>
+      </div>
+    </div>
   );
 }

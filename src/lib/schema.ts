@@ -7,10 +7,9 @@ import {
   json,
 } from "drizzle-orm/pg-core";
 
-// Wines table
 export const wines = pgTable("wines", {
   id: serial("id").primaryKey(),
-  wineId: text("wine_id").unique().notNull(), // URL-friendly identifier
+  wineId: text("wine_id").unique().notNull(),
   name: text("name").notNull(),
   description: text("description").notNull(),
   location: text("location").notNull(),
@@ -25,14 +24,14 @@ export const wines = pgTable("wines", {
   terroir: text("terroir").notNull(),
   viticulture: text("viticulture").notNull(),
   yields: text("yields").notNull(),
-  vinification: json("vinification").notNull(), // Store as JSON
+  vinification: json("vinification").notNull(),
   image: text("image").notNull(),
-  category: text("category").notNull(), // 'red', 'white', 'pink', 'amber'
+  category: text("category").notNull(),
+  visible: boolean("visible").default(true).notNull(),
   createdAt: timestamp("created_at").defaultNow(),
   updatedAt: timestamp("updated_at").defaultNow(),
 });
 
-// Admin users table
 export const adminUsers = pgTable("admin_users", {
   id: serial("id").primaryKey(),
   username: text("username").unique().notNull(),
@@ -40,7 +39,6 @@ export const adminUsers = pgTable("admin_users", {
   createdAt: timestamp("created_at").defaultNow(),
 });
 
-// Admin sessions table
 export const adminSessions = pgTable("admin_sessions", {
   id: serial("id").primaryKey(),
   userId: serial("user_id").references(() => adminUsers.id),

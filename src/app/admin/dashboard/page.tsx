@@ -22,27 +22,25 @@ export default function AdminDashboard() {
     handleEditWine,
     handleSaveWine,
     handleCancelEdit,
+    handleDeleteWine,
+    handleToggleVisible,
     refetchWines,
   } = useWineManager();
 
-  // Extract unique categories from existing wines
   const existingCategories = Array.from(
     new Set(wines.map((wine) => wine.category).filter(Boolean)),
   );
 
-  // Handle loading states
   if (authLoading || winesLoading) {
     return (
       <LoadingSpinner message="Verifying authentication and loading wines..." />
     );
   }
 
-  // Handle authentication
   if (!isLoggedIn) {
     return <LoadingSpinner message="Redirecting to login..." />;
   }
 
-  // Handle errors
   if (winesError) {
     return (
       <ErrorMessage
@@ -65,11 +63,16 @@ export default function AdminDashboard() {
                 wine={selectedWine}
                 onSave={handleSaveWine}
                 onCancel={handleCancelEdit}
+                onDelete={handleDeleteWine}
                 isSaving={isSaving}
                 existingCategories={existingCategories}
               />
             ) : (
-              <WineList wines={wines} onEditWine={handleEditWine} />
+              <WineList
+                wines={wines}
+                onEditWine={handleEditWine}
+                onToggleVisible={handleToggleVisible}
+              />
             )}
           </div>
         </div>
