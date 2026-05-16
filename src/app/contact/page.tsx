@@ -3,9 +3,26 @@ import { contactInfo } from "@/data/company";
 import style from "./page.module.scss";
 
 export const metadata = {
-  title: "Contact Us - Iberieli",
+  title: "Contact Us",
   description:
-    "Contact Iberieli for wine orders and business inquiries. We work with distributors and importers worldwide.",
+    "Contact Iberieli for wine orders and business inquiries. We work with wine importers and distributors worldwide. Reach us by phone or email.",
+  openGraph: {
+    title: "Contact Us | Iberieli",
+    description:
+      "Contact Iberieli for wine orders and business inquiries. We work with wine importers and distributors worldwide.",
+    url: "https://iberieli.com/contact",
+    images: [
+      { url: "/photos/red wine.webp", alt: "Iberieli Wine Orders" },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Contact Us | Iberieli",
+    description:
+      "Contact Iberieli for wine orders and business inquiries. We work with wine importers and distributors worldwide.",
+    images: ["/photos/red wine.webp"],
+  },
+  alternates: { canonical: "https://iberieli.com/contact" },
 };
 
 export default function ContactPage() {
@@ -17,7 +34,7 @@ export default function ContactPage() {
           <p className={style.subtitle}>
             We work with wine importers and dealers worldwide. Contact us for
             business inquiries and wine orders. For retail in Georgia, please
-            visit our online store{" "}
+            visit our partner's store{" "}
             <a
               href="https://topuridzewinery.ge/"
               target="_blank"

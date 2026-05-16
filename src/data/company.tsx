@@ -30,11 +30,23 @@ export const contactInfo: IContact = {
     email: "zurab@iberieli.com",
     person: "Zurab Topuridze",
     languages: "Georgian, English, Russian",
-    note: "We work with wine importers and dealers, we are not engaged in retail.",
+    note: (
+      <>
+        We work with wine importers and dealers, we are not engaged in retail.
+        For retail, please visit our partner's store{" "}
+        <a
+          href="https://topuridzewinery.ge/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          https://topuridzewinery.ge/
+        </a>
+      </>
+    ),
   },
   finances: {
     phone: "(+995) 599424141",
-    email: "finance@iberieli.com",
+    email: "elene@iberieli.com",
     person: "Finance Department",
   },
 };

@@ -1,18 +1,54 @@
-"use client";
-
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import Button from "@/components/atoms/Button";
 import Card from "@/components/atoms/Card";
-import { useWines } from "@/contexts/AppContext";
+import { db } from "@/lib/db";
+import { wines as winesTable } from "@/lib/schema";
+import { eq, and } from "drizzle-orm";
+import { mapDbWineToFrontend } from "@/lib/wineMapping";
 import { IWine } from "@/data/types";
 import style from "./page.module.scss";
-import { useEffect, useState } from "react";
 
 interface Props {
-  params: Promise<{
-    id: string;
-  }>;
+  params: Promise<{ id: string }>;
+}
+
+async function getWine(id: string): Promise<IWine | null> {
+  const results = await db
+    .select()
+    .from(winesTable)
+    .where(and(eq(winesTable.wineId, id), eq(winesTable.visible, true)));
+  return results[0] ? mapDbWineToFrontend(results[0]) : null;
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { id } = await params;
+  const wine = await getWine(id);
+  if (!wine) return { title: "Wine Not Found" };
+
+  const description =
+    wine.tastingNotes.length > 155
+      ? wine.tastingNotes.slice(0, 152) + "..."
+      : wine.tastingNotes;
+
+  return {
+    title: wine.name,
+    description,
+    openGraph: {
+      title: `${wine.name} | Iberieli`,
+      description,
+      url: `https://iberieli.com/wines/${wine.id}`,
+      images: [{ url: wine.image, alt: wine.name }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${wine.name} | Iberieli`,
+      description,
+      images: [wine.image],
+    },
+    alternates: { canonical: `https://iberieli.com/wines/${wine.id}` },
+  };
 }
 
 function WineDetailSection({
@@ -30,57 +66,34 @@ function WineDetailSection({
   );
 }
 
-export default function WinePage({ params }: Props) {
-  const { getWineById, error } = useWines();
-  const [wine, setWine] = useState<IWine | null>(null);
-  const [loading, setLoading] = useState(true);
+export default async function WinePage({ params }: Props) {
+  const { id } = await params;
+  const wine = await getWine(id);
 
-  useEffect(() => {
-    async function fetchWine() {
-      try {
-        const { id } = await params;
-        const wineData = await getWineById(id);
-        setWine(wineData);
-        setLoading(false);
-      } catch (err) {
-        console.error("Error fetching wine:", err);
-        setLoading(false);
-      }
-    }
+  if (!wine) notFound();
 
-    fetchWine();
-  }, [params, getWineById]);
-
-  if (loading) {
-    return (
-      <div className={style.winePage}>
-        <div className="container">
-          <div className={style.loading}>
-            <p>Loading wine details...</p>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div className={style.winePage}>
-        <div className="container">
-          <div className={style.error}>
-            <p>Error loading wine: {error}</p>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  if (!wine) {
-    notFound();
-  }
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: wine.name,
+    description: wine.description,
+    image: wine.image.startsWith("http")
+      ? wine.image
+      : `https://iberieli.com${wine.image}`,
+    brand: { "@type": "Brand", name: "Iberieli" },
+    offers: {
+      "@type": "Offer",
+      availability: "https://schema.org/InStock",
+      seller: { "@type": "Organization", name: "Iberieli LLC" },
+    },
+  };
 
   return (
     <div className={style.winePage}>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <div className="container">
         <div className={style.breadcrumb}>
           <Link href="/wines">← Back to Wines</Link>

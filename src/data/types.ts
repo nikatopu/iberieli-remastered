@@ -1,3 +1,5 @@
+import { JSX } from "react";
+
 export interface IWine {
   id: string;
   name: string;
@@ -51,7 +53,7 @@ export interface IContact {
     email: string;
     person: string;
     languages: string;
-    note: string;
+    note: string | JSX.Element;
   };
   finances: {
     phone: string;

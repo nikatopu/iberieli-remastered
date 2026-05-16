@@ -1,36 +1,49 @@
-"use client";
-
+import type { Metadata } from "next";
 import WineCard from "@/components/organisms/WineCard";
-import { useWines } from "@/contexts/AppContext";
 import style from "./page.module.scss";
+import { db } from "@/lib/db";
+import { wines as winesTable } from "@/lib/schema";
+import { eq } from "drizzle-orm";
+import { mapDbWineToFrontend } from "@/lib/wineMapping";
+import { IWine } from "@/data/types";
 
-export default function WinesPage() {
-  const { wines, winesByCategory, loading, error } = useWines();
+export const metadata: Metadata = {
+  title: "Wine Collection",
+  description:
+    "Explore Iberieli's full collection of authentic Georgian natural wines — red, white, amber, and pink — crafted using traditional Kvevri methods from native grape varieties in Guria and Kakheti.",
+  openGraph: {
+    title: "Wine Collection | Iberieli",
+    description:
+      "Explore Iberieli's full collection of authentic Georgian natural wines crafted using traditional Kvevri methods.",
+    url: "https://iberieli.com/wines",
+    images: [{ url: "/photos/Wines 1.webp", alt: "Iberieli Wine Collection" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Wine Collection | Iberieli",
+    description:
+      "Explore Iberieli's full collection of authentic Georgian natural wines crafted using traditional Kvevri methods.",
+    images: ["/photos/Wines 1.webp"],
+  },
+  alternates: { canonical: "https://iberieli.com/wines" },
+};
 
-  if (loading) {
-    return (
-      <div className={style.winesPage}>
-        <div className="container">
-          <div className={style.loading}>
-            <p>Loading our wine collection...</p>
-          </div>
-        </div>
-      </div>
-    );
-  }
+export default async function WinesPage() {
+  const dbWines = await db
+    .select()
+    .from(winesTable)
+    .where(eq(winesTable.visible, true));
 
-  if (error) {
-    return (
-      <div className={style.winesPage}>
-        <div className="container">
-          <div className={style.error}>
-            <p>Error loading wines: {error}</p>
-            <p>Please try refreshing the page.</p>
-          </div>
-        </div>
-      </div>
-    );
-  }
+  const allWines = dbWines.map(mapDbWineToFrontend);
+
+  const winesByCategory = allWines.reduce(
+    (acc, wine) => {
+      if (!acc[wine.category]) acc[wine.category] = [];
+      acc[wine.category].push(wine);
+      return acc;
+    },
+    {} as Record<string, IWine[]>,
+  );
 
   const categoryOrder = ["red", "white", "pink", "amber"];
 
@@ -46,7 +59,7 @@ export default function WinesPage() {
           </p>
         </header>
 
-        {wines.length === 0 ? (
+        {allWines.length === 0 ? (
           <div className={style.noWines}>
             <p>No wines available at the moment.</p>
           </div>

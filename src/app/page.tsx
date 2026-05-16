@@ -1,14 +1,18 @@
-"use client";
-
 import Link from "next/link";
 import Button from "@/components/atoms/Button";
 import WineCard from "@/components/organisms/WineCard";
 import style from "./page.module.scss";
-import { useWines } from "@/contexts/AppContext";
+import { db } from "@/lib/db";
+import { wines as winesTable } from "@/lib/schema";
+import { eq } from "drizzle-orm";
+import { mapDbWineToFrontend } from "@/lib/wineMapping";
 
-export default function Home() {
-  const { wines } = useWines();
-  const featuredWines = wines.slice(0, 3);
+export default async function Home() {
+  const dbWines = await db
+    .select()
+    .from(winesTable)
+    .where(eq(winesTable.visible, true));
+  const featuredWines = dbWines.slice(0, 3).map(mapDbWineToFrontend);
 
   return (
     <div className={style.homepage}>
