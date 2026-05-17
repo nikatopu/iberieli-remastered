@@ -78,24 +78,21 @@ function mapApiWineToFrontend(apiWine: ApiWine): IWine {
     viticulture: apiWine.viticulture,
     yields: apiWine.yields,
     vinification: {
-      harvest: apiWine.vinification.harvest || "Hand-picked grapes",
-      processing: apiWine.vinification.processing || "Traditional processing",
-      fermentation:
-        apiWine.vinification.fermentation || "Traditional fermentation",
-      fermentationTime: apiWine.vinification.fermentationTime || "14-21 days",
-      fermentationVessel:
-        apiWine.vinification.fermentationVessel || "Traditional vessels",
-      maceration: apiWine.vinification.maceration || "Traditional maceration",
-      macerationVessel:
-        apiWine.vinification.macerationVessel || "Traditional vessels",
+      harvest: apiWine.vinification.harvest?.trim() || undefined,
+      processing: apiWine.vinification.processing?.trim() || undefined,
+      fermentation: apiWine.vinification.fermentation?.trim() || undefined,
+      fermentationTime: apiWine.vinification.fermentationTime?.trim() || undefined,
+      fermentationVessel: apiWine.vinification.fermentationVessel?.trim() || undefined,
+      maceration: apiWine.vinification.maceration?.trim() || undefined,
+      macerationVessel: apiWine.vinification.macerationVessel?.trim() || undefined,
       maturationTime:
-        apiWine.vinification.maturationTime ||
-        apiWine.vinification.aging ||
-        "6-12 months",
-      maturationVessel: apiWine.vinification.maturationVessel || "Oak barrels",
-      filtration: apiWine.vinification.filtration || "Minimal filtration",
-      fining: apiWine.vinification.fining || "Natural clarification",
-      sulphur: apiWine.vinification.sulphur || "Minimal sulphites",
+        apiWine.vinification.maturationTime?.trim() ||
+        apiWine.vinification.aging?.trim() ||
+        undefined,
+      maturationVessel: apiWine.vinification.maturationVessel?.trim() || undefined,
+      filtration: apiWine.vinification.filtration?.trim() || undefined,
+      fining: apiWine.vinification.fining?.trim() || undefined,
+      sulphur: apiWine.vinification.sulphur?.trim() || undefined,
     },
     image: apiWine.image,
     category: apiWine.category as "red" | "white" | "pink" | "amber",

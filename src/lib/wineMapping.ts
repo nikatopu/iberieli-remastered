@@ -17,6 +17,10 @@ type VinificationJson = {
   sulphur?: string;
 };
 
+function val(s: string | undefined): string | undefined {
+  return s && s.trim() ? s.trim() : undefined;
+}
+
 export function mapDbWineToFrontend(wine: Wine): IWine {
   const v = (wine.vinification as VinificationJson) ?? {};
   return {
@@ -36,18 +40,18 @@ export function mapDbWineToFrontend(wine: Wine): IWine {
     viticulture: wine.viticulture,
     yields: wine.yields,
     vinification: {
-      harvest: v.harvest ?? "Hand-picked grapes",
-      processing: v.processing ?? "Traditional processing",
-      fermentation: v.fermentation ?? "Traditional fermentation",
-      fermentationTime: v.fermentationTime ?? "14-21 days",
-      fermentationVessel: v.fermentationVessel ?? "Traditional vessels",
-      maceration: v.maceration ?? "Traditional maceration",
-      macerationVessel: v.macerationVessel ?? "Traditional vessels",
-      maturationTime: v.maturationTime ?? v.aging ?? "6-12 months",
-      maturationVessel: v.maturationVessel ?? "Oak barrels",
-      filtration: v.filtration ?? "Minimal filtration",
-      fining: v.fining ?? "Natural clarification",
-      sulphur: v.sulphur ?? "Minimal sulphites",
+      harvest: val(v.harvest),
+      processing: val(v.processing),
+      fermentation: val(v.fermentation),
+      fermentationTime: val(v.fermentationTime),
+      fermentationVessel: val(v.fermentationVessel),
+      maceration: val(v.maceration),
+      macerationVessel: val(v.macerationVessel),
+      maturationTime: val(v.maturationTime) ?? val(v.aging),
+      maturationVessel: val(v.maturationVessel),
+      filtration: val(v.filtration),
+      fining: val(v.fining),
+      sulphur: val(v.sulphur),
     },
     image: wine.image,
     category: wine.category as "red" | "white" | "pink" | "amber",

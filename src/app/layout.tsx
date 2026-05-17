@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Josefin_Sans, Montserrat } from "next/font/google";
+import { Josefin_Sans, Merriweather, Montserrat } from "next/font/google";
 import Layout from "@/components/organisms/Layout";
 import { ContextProviderWrapper } from "@/contexts/AppContext";
 import "@/styles/globals.scss";
@@ -13,6 +13,13 @@ const josefinSans = Josefin_Sans({
 const montserrat = Montserrat({
   variable: "--font-montserrat",
   subsets: ["latin"],
+  display: "swap",
+});
+
+const merriweather = Merriweather({
+  variable: "--font-merriweather",
+  subsets: ["latin"],
+  weight: ["300", "400", "700"],
   display: "swap",
 });
 
@@ -124,7 +131,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${josefinSans.variable} ${montserrat.variable}`}
+      className={`${josefinSans.variable} ${montserrat.variable} ${merriweather.variable}`}
     >
       <head>
         <script

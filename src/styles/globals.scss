@@ -10,8 +10,9 @@
   --border-light: #e0e0e0;
   --border-dark: #333333;
 
-  --font-primary: var(--font-josefin), "Josefin Sans", sans-serif;
-  --font-secondary: var(--font-montserrat), "Montserrat", sans-serif;
+  --font-primary: var(--font-merriweather), "Merriweather", Georgia, serif;
+  --font-secondary: var(--font-josefin), "Josefin Sans", sans-serif;
+  --font-ui: var(--font-montserrat), "Montserrat", sans-serif;
 
   --spacing-xs: 0.25em;
   --spacing-sm: 0.5em;
@@ -126,10 +127,13 @@ a:hover {
   margin-top: var(--spacing-lg);
 }
 
-button {
+button,
+input,
+select,
+textarea {
   border: none;
   background: none;
-  font-family: inherit;
+  font-family: var(--font-ui);
   cursor: pointer;
 }
 

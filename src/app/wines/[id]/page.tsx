@@ -163,37 +163,28 @@ export default async function WinePage({ params }: Props) {
 
           <WineDetailSection title="Vinification">
             <div className={style.vinification}>
-              <div className={style.vinificationItem}>
-                <strong>Harvest:</strong> {wine.vinification.harvest}
-              </div>
-              <div className={style.vinificationItem}>
-                <strong>Processing:</strong> {wine.vinification.processing}
-              </div>
-              <div className={style.vinificationItem}>
-                <strong>Fermentation:</strong> {wine.vinification.fermentation}
-              </div>
-              <div className={style.vinificationItem}>
-                <strong>Fermentation Time:</strong>{" "}
-                {wine.vinification.fermentationTime}
-              </div>
-              <div className={style.vinificationItem}>
-                <strong>Fermentation Vessel:</strong>{" "}
-                {wine.vinification.fermentationVessel}
-              </div>
-              <div className={style.vinificationItem}>
-                <strong>Maturation Time:</strong>{" "}
-                {wine.vinification.maturationTime}
-              </div>
-              <div className={style.vinificationItem}>
-                <strong>Maturation Vessel:</strong>{" "}
-                {wine.vinification.maturationVessel}
-              </div>
-              <div className={style.vinificationItem}>
-                <strong>Filtration:</strong> {wine.vinification.filtration}
-              </div>
-              <div className={style.vinificationItem}>
-                <strong>Sulphur:</strong> {wine.vinification.sulphur}
-              </div>
+              {(
+                [
+                  ["Harvest", wine.vinification.harvest],
+                  ["Processing", wine.vinification.processing],
+                  ["Fermentation", wine.vinification.fermentation],
+                  ["Fermentation Time", wine.vinification.fermentationTime],
+                  ["Fermentation Vessel", wine.vinification.fermentationVessel],
+                  ["Maceration", wine.vinification.maceration],
+                  ["Maceration Vessel", wine.vinification.macerationVessel],
+                  ["Maturation Time", wine.vinification.maturationTime],
+                  ["Maturation Vessel", wine.vinification.maturationVessel],
+                  ["Filtration", wine.vinification.filtration],
+                  ["Fining", wine.vinification.fining],
+                  ["Sulphur", wine.vinification.sulphur],
+                ] as [string, string | undefined][]
+              )
+                .filter(([, v]) => v)
+                .map(([label, value]) => (
+                  <div key={label} className={style.vinificationItem}>
+                    <strong>{label}:</strong> {value}
+                  </div>
+                ))}
             </div>
           </WineDetailSection>
         </div>
