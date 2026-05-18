@@ -6,13 +6,16 @@ import { db } from "@/lib/db";
 import { wines as winesTable } from "@/lib/schema";
 import { eq } from "drizzle-orm";
 import { mapDbWineToFrontend } from "@/lib/wineMapping";
+import FeaturedWines from "@/components/organisms/FeaturedWines";
 
 export default async function Home() {
   const dbWines = await db
     .select()
     .from(winesTable)
     .where(eq(winesTable.visible, true));
-  const featuredWines = dbWines.slice(0, 3).map(mapDbWineToFrontend);
+
+  const featuredWines = dbWines.map(mapDbWineToFrontend);
+  
 
   return (
     <div className={style.homepage}>
@@ -55,9 +58,7 @@ export default async function Home() {
         <div className="container">
           <h2 className="text-center mb-lg">Featured Wines</h2>
           <div className={style.wineGrid}>
-            {featuredWines.map((wine) => (
-              <WineCard key={wine.id} wine={wine} />
-            ))}
+            <FeaturedWines wines={featuredWines} />
           </div>
           <div className={style.viewAll}>
             <Link href="/wines">
