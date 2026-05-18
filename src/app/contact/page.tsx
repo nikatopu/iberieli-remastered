@@ -1,5 +1,7 @@
 import Card from "@/components/atoms/Card";
-import { contactInfo } from "@/data/company";
+import { db } from "@/lib/db";
+import { contacts } from "@/lib/schema";
+import { eq } from "drizzle-orm";
 import style from "./page.module.scss";
 
 export const metadata = {
@@ -23,7 +25,40 @@ export const metadata = {
   alternates: { canonical: "https://www.iberieli.com/contact" },
 };
 
-export default function ContactPage() {
+interface ContactEntry {
+  contactId: string;
+  label: string;
+  phone: string | null;
+  email: string | null;
+  person: string | null;
+  languages: string | null;
+  note: string | null;
+  visible: boolean;
+}
+
+async function getVisibleContacts(): Promise<ContactEntry[]> {
+  try {
+    return await db
+      .select({
+        contactId: contacts.contactId,
+        label: contacts.label,
+        phone: contacts.phone,
+        email: contacts.email,
+        person: contacts.person,
+        languages: contacts.languages,
+        note: contacts.note,
+        visible: contacts.visible,
+      })
+      .from(contacts)
+      .where(eq(contacts.visible, true));
+  } catch {
+    return [];
+  }
+}
+
+export default async function ContactPage() {
+  const contactList = await getVisibleContacts();
+
   return (
     <div className={style.contactPage}>
       <div className="container">
@@ -31,93 +66,54 @@ export default function ContactPage() {
           <h1>Contact Us</h1>
           <p className={style.subtitle}>
             We work with wine importers and dealers worldwide. Contact us for
-            business inquiries and wine orders. For retail in Georgia, please
-            visit our partner's store{" "}
-            <a
-              href="https://topuridzewinery.ge/"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              https://topuridzewinery.ge/
-            </a>
-            .
+            business inquiries and wine orders.
           </p>
         </header>
 
-        <div className={style.contactGrid}>
-          <Card variant="elevated" className={style.contactCard}>
-            <div className={style.cardContent}>
-              <div className={style.cardImage}>
-                <img
-                  src="/photos/red wine.webp"
-                  alt="Wine ordering"
-                  className={style.image}
-                />
-              </div>
-              <div className={style.cardInfo}>
-                <h2>Wine Orders</h2>
-                <div className={style.contactInfo}>
-                  <div className={style.contactItem}>
-                    <strong>Phone:</strong>
-                    <a href={`tel:${contactInfo.ordering.phone}`}>
-                      {contactInfo.ordering.phone}
-                    </a>
-                  </div>
-                  <div className={style.contactItem}>
-                    <strong>Email:</strong>
-                    <a href={`mailto:${contactInfo.ordering.email}`}>
-                      {contactInfo.ordering.email}
-                    </a>
-                  </div>
-                  <div className={style.contactItem}>
-                    <strong>Contact Person:</strong>
-                    <span>{contactInfo.ordering.person}</span>
-                  </div>
-                  <div className={style.contactItem}>
-                    <strong>Languages:</strong>
-                    <span>{contactInfo.ordering.languages}</span>
-                  </div>
+        {contactList.length > 0 && (
+          <div className={style.contactGrid}>
+            {contactList.map((contact) => (
+              <Card key={contact.contactId} variant="elevated" className={style.contactCard}>
+                <div className={style.cardInfo}>
+                  <h2>{contact.label}</h2>
+                  {(contact.phone || contact.email || contact.person || contact.languages) && (
+                    <div className={style.contactInfo}>
+                      {contact.person && (
+                        <div className={style.contactItem}>
+                          <strong>Contact Person:</strong>
+                          <span>{contact.person}</span>
+                        </div>
+                      )}
+                      {contact.phone && (
+                        <div className={style.contactItem}>
+                          <strong>Phone:</strong>
+                          <a href={`tel:${contact.phone}`}>{contact.phone}</a>
+                        </div>
+                      )}
+                      {contact.email && (
+                        <div className={style.contactItem}>
+                          <strong>Email:</strong>
+                          <a href={`mailto:${contact.email}`}>{contact.email}</a>
+                        </div>
+                      )}
+                      {contact.languages && (
+                        <div className={style.contactItem}>
+                          <strong>Languages:</strong>
+                          <span>{contact.languages}</span>
+                        </div>
+                      )}
+                    </div>
+                  )}
+                  {contact.note && (
+                    <div className={style.note}>
+                      {contact.note}
+                    </div>
+                  )}
                 </div>
-                <div className={style.note}>
-                  <strong>Note:</strong> {contactInfo.ordering.note}
-                </div>
-              </div>
-            </div>
-          </Card>
-
-          <Card variant="elevated" className={style.contactCard}>
-            <div className={style.cardContent}>
-              <div className={style.cardImage}>
-                <img
-                  src="/photos/Iberieli Logo.webp"
-                  alt="Business inquiries"
-                  className={style.image}
-                />
-              </div>
-              <div className={style.cardInfo}>
-                <h2>Finances & Invoicing</h2>
-                <div className={style.contactInfo}>
-                  <div className={style.contactItem}>
-                    <strong>Phone:</strong>
-                    <a href={`tel:${contactInfo.finances.phone}`}>
-                      {contactInfo.finances.phone}
-                    </a>
-                  </div>
-                  <div className={style.contactItem}>
-                    <strong>Email:</strong>
-                    <a href={`mailto:${contactInfo.finances.email}`}>
-                      {contactInfo.finances.email}
-                    </a>
-                  </div>
-                  <div className={style.contactItem}>
-                    <strong>Department:</strong>
-                    <span>{contactInfo.finances.person}</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </Card>
-        </div>
+              </Card>
+            ))}
+          </div>
+        )}
 
         <section className={style.businessInfo}>
           <Card variant="elevated">

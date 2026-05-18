@@ -1,18 +1,23 @@
 "use client";
 
+import { useState } from "react";
 import { useAdminAuth, useWineManager } from "../hooks";
 import {
   AdminHeader,
   WineList,
   WineEditForm,
+  ContactManager,
   LoadingSpinner,
   ErrorMessage,
   AdminToastProvider,
 } from "../components";
 import styles from "./page.module.scss";
 
+type ActiveSection = "wines" | "contacts";
+
 export default function AdminDashboard() {
   const { isLoggedIn, isLoading: authLoading, logout } = useAdminAuth();
+  const [activeSection, setActiveSection] = useState<ActiveSection>("wines");
   const {
     wines,
     loading: winesLoading,
@@ -57,8 +62,27 @@ export default function AdminDashboard() {
         <div className="container">
           <AdminHeader onLogout={logout} />
 
+          <div className={styles.sectionToggle}>
+            <button
+              type="button"
+              className={`${styles.toggleBtn} ${activeSection === "wines" ? styles.toggleBtnActive : ""}`}
+              onClick={() => setActiveSection("wines")}
+            >
+              Wine Catalogue
+            </button>
+            <button
+              type="button"
+              className={`${styles.toggleBtn} ${activeSection === "contacts" ? styles.toggleBtnActive : ""}`}
+              onClick={() => setActiveSection("contacts")}
+            >
+              Contacts
+            </button>
+          </div>
+
           <div className={styles.content}>
-            {selectedWine ? (
+            {activeSection === "contacts" ? (
+              <ContactManager />
+            ) : selectedWine ? (
               <WineEditForm
                 wine={selectedWine}
                 onSave={handleSaveWine}

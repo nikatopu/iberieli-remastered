@@ -5,13 +5,20 @@ import { uploadImageToCloudinary } from "../utils/imageUpload";
 
 function mapApiWine(apiWine: Record<string, unknown>): IWine {
   const vin = (apiWine.vinification as Record<string, string>) || {};
+  const trimOrUndef = (s: unknown) => {
+    const str = s as string | null | undefined;
+    return str && str.trim() ? str.trim() : undefined;
+  };
   return {
     id: apiWine.wineId as string,
     name: apiWine.name as string,
     description: apiWine.description as string,
     location: apiWine.location as string,
     grapeBlend: apiWine.grapeBlend as string,
-    sustainability: apiWine.sustainability as string,
+    cellarName: (apiWine.cellarName as string) || "Iberieli",
+    winemaker: (apiWine.winemaker as string) || "Zurab Topuridze",
+    alcoholLevel: trimOrUndef(apiWine.alcoholLevel),
+    inStock: apiWine.inStock !== false,
     certification: apiWine.certification as string,
     vegan: Boolean(apiWine.vegan),
     allergens: Boolean(apiWine.allergens),

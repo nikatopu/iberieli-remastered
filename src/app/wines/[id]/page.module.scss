@@ -18,6 +18,37 @@
   }
 }
 
+.summary {
+  font-size: 1.05em;
+  color: var(--text-secondary);
+  font-style: italic;
+  margin-bottom: var(--spacing-xl);
+  max-width: 700px;
+  line-height: 1.7;
+}
+
+.badgeInStock {
+  display: inline-block;
+  padding: 0.15em 0.5em;
+  background: #dcfce7;
+  color: #166534;
+  border-radius: 0.2em;
+  font-size: 0.875em;
+  font-weight: 600;
+  margin-left: var(--spacing-sm);
+}
+
+.badgeOutOfStock {
+  display: inline-block;
+  padding: 0.15em 0.5em;
+  background: #fee2e2;
+  color: #991b1b;
+  border-radius: 0.2em;
+  font-size: 0.875em;
+  font-weight: 600;
+  margin-left: var(--spacing-sm);
+}
+
 .wineHeader {
   display: grid;
   grid-template-columns: 300px 1fr;

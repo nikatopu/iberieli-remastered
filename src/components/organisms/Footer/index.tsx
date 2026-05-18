@@ -1,8 +1,25 @@
-import { contactInfo } from "@/data/company";
+import { db } from "@/lib/db";
+import { contacts } from "@/lib/schema";
+import { eq } from "drizzle-orm";
 import style from "./Footer.module.scss";
 
-export default function Footer() {
+async function getOrderingContact() {
+  try {
+    const results = await db
+      .select()
+      .from(contacts)
+      .where(eq(contacts.contactId, "ordering"));
+    const contact = results[0];
+    if (!contact || !contact.visible) return null;
+    return contact;
+  } catch {
+    return null;
+  }
+}
+
+export default async function Footer() {
   const currentYear = new Date().getFullYear();
+  const ordering = await getOrderingContact();
 
   return (
     <footer className={style.footer}>
@@ -16,9 +33,11 @@ export default function Footer() {
 
           <div className={style.section}>
             <h4>Contact</h4>
-            <p>{contactInfo.ordering.phone}</p>
-            <p>{contactInfo.ordering.email}</p>
-            <p className={style.note}>{contactInfo.ordering.note}</p>
+            {ordering?.phone && <p>{ordering.phone}</p>}
+            {ordering?.email && <p>{ordering.email}</p>}
+            {!ordering?.phone && !ordering?.email && (
+              <p>See our contact page for details.</p>
+            )}
           </div>
 
           <div className={style.section}>

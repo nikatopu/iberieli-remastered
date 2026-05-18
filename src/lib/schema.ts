@@ -14,7 +14,10 @@ export const wines = pgTable("wines", {
   description: text("description").notNull(),
   location: text("location").notNull(),
   grapeBlend: text("grape_blend").notNull(),
-  sustainability: text("sustainability").notNull(),
+  cellarName: text("cellar_name").default("Iberieli").notNull(),
+  winemaker: text("winemaker").default("Zurab Topuridze").notNull(),
+  alcoholLevel: text("alcohol_level"),
+  inStock: boolean("in_stock").default(true).notNull(),
   certification: text("certification").notNull(),
   vegan: boolean("vegan").default(true),
   allergens: boolean("allergens").default(false),
@@ -47,7 +50,23 @@ export const adminSessions = pgTable("admin_sessions", {
   createdAt: timestamp("created_at").defaultNow(),
 });
 
+export const contacts = pgTable("contacts", {
+  id: serial("id").primaryKey(),
+  contactId: text("contact_id").unique().notNull(),
+  label: text("label").notNull(),
+  phone: text("phone"),
+  email: text("email"),
+  person: text("person"),
+  languages: text("languages"),
+  note: text("note"),
+  visible: boolean("visible").default(true).notNull(),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+});
+
 export type Wine = typeof wines.$inferSelect;
 export type NewWine = typeof wines.$inferInsert;
 export type AdminUser = typeof adminUsers.$inferSelect;
 export type NewAdminUser = typeof adminUsers.$inferInsert;
+export type Contact = typeof contacts.$inferSelect;
+export type NewContact = typeof contacts.$inferInsert;

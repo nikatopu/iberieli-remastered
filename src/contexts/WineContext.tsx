@@ -16,7 +16,10 @@ interface ApiWine {
   description: string;
   location: string;
   grapeBlend: string;
-  sustainability: string;
+  cellarName: string;
+  winemaker: string;
+  alcoholLevel?: string | null;
+  inStock: boolean;
   certification: string;
   vegan: boolean;
   allergens: boolean;
@@ -61,13 +64,17 @@ interface WineContextType {
 const WineContext = createContext<WineContextType | undefined>(undefined);
 
 function mapApiWineToFrontend(apiWine: ApiWine): IWine {
+  const trimOrUndef = (s?: string | null) => s?.trim() || undefined;
   return {
     id: apiWine.wineId,
     name: apiWine.name,
     description: apiWine.description,
     location: apiWine.location,
     grapeBlend: apiWine.grapeBlend,
-    sustainability: apiWine.sustainability,
+    cellarName: apiWine.cellarName ?? "Iberieli",
+    winemaker: apiWine.winemaker ?? "Zurab Topuridze",
+    alcoholLevel: trimOrUndef(apiWine.alcoholLevel),
+    inStock: apiWine.inStock ?? true,
     certification: apiWine.certification,
     vegan: apiWine.vegan,
     allergens: apiWine.allergens,
@@ -78,21 +85,20 @@ function mapApiWineToFrontend(apiWine: ApiWine): IWine {
     viticulture: apiWine.viticulture,
     yields: apiWine.yields,
     vinification: {
-      harvest: apiWine.vinification.harvest?.trim() || undefined,
-      processing: apiWine.vinification.processing?.trim() || undefined,
-      fermentation: apiWine.vinification.fermentation?.trim() || undefined,
-      fermentationTime: apiWine.vinification.fermentationTime?.trim() || undefined,
-      fermentationVessel: apiWine.vinification.fermentationVessel?.trim() || undefined,
-      maceration: apiWine.vinification.maceration?.trim() || undefined,
-      macerationVessel: apiWine.vinification.macerationVessel?.trim() || undefined,
+      harvest: trimOrUndef(apiWine.vinification.harvest),
+      processing: trimOrUndef(apiWine.vinification.processing),
+      fermentation: trimOrUndef(apiWine.vinification.fermentation),
+      fermentationTime: trimOrUndef(apiWine.vinification.fermentationTime),
+      fermentationVessel: trimOrUndef(apiWine.vinification.fermentationVessel),
+      maceration: trimOrUndef(apiWine.vinification.maceration),
+      macerationVessel: trimOrUndef(apiWine.vinification.macerationVessel),
       maturationTime:
-        apiWine.vinification.maturationTime?.trim() ||
-        apiWine.vinification.aging?.trim() ||
-        undefined,
-      maturationVessel: apiWine.vinification.maturationVessel?.trim() || undefined,
-      filtration: apiWine.vinification.filtration?.trim() || undefined,
-      fining: apiWine.vinification.fining?.trim() || undefined,
-      sulphur: apiWine.vinification.sulphur?.trim() || undefined,
+        trimOrUndef(apiWine.vinification.maturationTime) ||
+        trimOrUndef(apiWine.vinification.aging),
+      maturationVessel: trimOrUndef(apiWine.vinification.maturationVessel),
+      filtration: trimOrUndef(apiWine.vinification.filtration),
+      fining: trimOrUndef(apiWine.vinification.fining),
+      sulphur: trimOrUndef(apiWine.vinification.sulphur),
     },
     image: apiWine.image,
     category: apiWine.category as "red" | "white" | "pink" | "amber",

@@ -6,3 +6,4 @@ export { default as DeleteConfirmModal } from "./DeleteConfirmModal";
 export { default as AdminToastProvider } from "./AdminToastProvider";
 export { default as LoadingSpinner } from "./ui/LoadingSpinner";
 export { default as ErrorMessage } from "./ui/ErrorMessage";
+export { default as ContactManager } from "./ContactManager";

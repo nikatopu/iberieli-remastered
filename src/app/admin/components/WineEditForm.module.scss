@@ -322,6 +322,18 @@
   }
 }
 
+.toggleRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--spacing-lg);
+  margin-bottom: var(--spacing-lg);
+}
+
+.customCategoryInput {
+  margin-top: 0.5em;
+}
+
 .sublabel {
   display: block;
   color: var(--text-secondary);

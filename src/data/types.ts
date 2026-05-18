@@ -6,7 +6,10 @@ export interface IWine {
   description: string;
   location: string;
   grapeBlend: string;
-  sustainability: string;
+  cellarName: string;
+  winemaker: string;
+  alcoholLevel?: string;
+  inStock: boolean;
   certification: string;
   vegan: boolean;
   allergens: boolean;
@@ -60,4 +63,15 @@ export interface IContact {
     email: string;
     person: string;
   };
+}
+
+export interface IContactEntry {
+  contactId: string;
+  label: string;
+  phone?: string | null;
+  email?: string | null;
+  person?: string | null;
+  languages?: string | null;
+  note?: string | null;
+  visible: boolean;
 }

@@ -99,6 +99,8 @@ export default async function WinePage({ params }: Props) {
           <Link href="/wines">← Back to Wines</Link>
         </div>
 
+        <p className={style.summary}>{wine.description}</p>
+
         <div className={style.wineHeader}>
           <div className={style.wineImage}>
             <img src={wine.image} alt={wine.name} className={style.image} />
@@ -121,7 +123,21 @@ export default async function WinePage({ params }: Props) {
                 </span>
               </div>
               <div className={style.infoItem}>
-                <strong>Sustainable:</strong> {wine.sustainability}
+                <strong>Cellar:</strong> {wine.cellarName}
+              </div>
+              <div className={style.infoItem}>
+                <strong>Winemaker:</strong> {wine.winemaker}
+              </div>
+              {wine.alcoholLevel && (
+                <div className={style.infoItem}>
+                  <strong>Alcohol:</strong> {wine.alcoholLevel}
+                </div>
+              )}
+              <div className={style.infoItem}>
+                <strong>Availability:</strong>
+                <span className={wine.inStock ? style.badgeInStock : style.badgeOutOfStock}>
+                  {wine.inStock ? "In Stock" : "Out of Stock"}
+                </span>
               </div>
               <div className={style.infoItem}>
                 <strong>Vegan:</strong> {wine.vegan ? "Yes" : "No"}

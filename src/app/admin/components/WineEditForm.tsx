@@ -32,16 +32,15 @@ export default function WineEditForm({
   const [customCategory, setCustomCategory] = useState("");
   const [showCustomCategory, setShowCustomCategory] = useState(false);
   const [visible, setVisible] = useState(wine.visible);
-
-  const [sustainability, setSustainability] = useState(wine.sustainability);
+  const [cellarName, setCellarName] = useState(wine.cellarName ?? "Iberieli");
+  const [winemaker, setWinemaker] = useState(wine.winemaker ?? "Zurab Topuridze");
+  const [alcoholLevel, setAlcoholLevel] = useState(wine.alcoholLevel ?? "");
+  const [inStock, setInStock] = useState(wine.inStock ?? true);
   const [certification, setCertification] = useState(wine.certification);
   const [vegan, setVegan] = useState(wine.vegan);
   const [allergens, setAllergens] = useState(wine.allergens);
-
   const [tastingNotes, setTastingNotes] = useState(wine.tastingNotes);
-  const [foodRecommendation, setFoodRecommendation] = useState(
-    wine.foodRecommendation,
-  );
+  const [foodRecommendation, setFoodRecommendation] = useState(wine.foodRecommendation);
   const [climate, setClimate] = useState(wine.climate);
   const [terroir, setTerroir] = useState(wine.terroir);
   const [viticulture, setViticulture] = useState(wine.viticulture);
@@ -115,7 +114,7 @@ export default function WineEditForm({
     }
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault();
     const finalCategory = showCustomCategory ? customCategory : category;
     if (!finalCategory) {
@@ -129,7 +128,10 @@ export default function WineEditForm({
       location: location.trim(),
       grapeBlend: grapeBlend.trim(),
       category: finalCategory as "red" | "white" | "pink" | "amber",
-      sustainability: sustainability.trim(),
+      cellarName: cellarName.trim(),
+      winemaker: winemaker.trim(),
+      alcoholLevel: alcoholLevel.trim() || undefined,
+      inStock,
       certification: certification.trim(),
       vegan,
       allergens,
@@ -202,121 +204,8 @@ export default function WineEditForm({
           </div>
 
           <form onSubmit={handleSubmit} className={styles.form}>
-            <section className={styles.formSection}>
-              <h3 className={styles.sectionTitle}>Basic Information</h3>
-              <div className={styles.formRow}>
-                <div className={styles.formGroup}>
-                  <label htmlFor="name">Wine Name *</label>
-                  <input
-                    type="text"
-                    id="name"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    className={styles.input}
-                    placeholder="Wine name..."
-                    required
-                    disabled={isSaving}
-                  />
-                </div>
-                <div className={styles.formGroup}>
-                  <label htmlFor="grapeBlend">Grape Blend *</label>
-                  <input
-                    type="text"
-                    id="grapeBlend"
-                    value={grapeBlend}
-                    onChange={(e) => setGrapeBlend(e.target.value)}
-                    className={styles.input}
-                    placeholder="e.g., Saperavi, Rkatsiteli..."
-                    required
-                    disabled={isSaving}
-                  />
-                </div>
-              </div>
-              <div className={styles.formRow}>
-                <div className={styles.formGroup}>
-                  <label htmlFor="location">Location *</label>
-                  <input
-                    type="text"
-                    id="location"
-                    value={location}
-                    onChange={(e) => setLocation(e.target.value)}
-                    className={styles.input}
-                    placeholder="e.g., Kakheti, Tsinandali..."
-                    required
-                    disabled={isSaving}
-                  />
-                </div>
-                <div className={styles.formGroup}>
-                  <label htmlFor="category">Category *</label>
-                  <select
-                    id="category"
-                    value={showCustomCategory ? "custom" : category}
-                    onChange={(e) => handleCategoryChange(e.target.value)}
-                    className={styles.select}
-                    required
-                    disabled={isSaving}
-                  >
-                    <option value="">Select category...</option>
-                    {existingCategories.map((cat) => (
-                      <option key={cat} value={cat}>
-                        {cat}
-                      </option>
-                    ))}
-                    <option value="custom">+ Add new category</option>
-                  </select>
-                  {showCustomCategory && (
-                    <input
-                      type="text"
-                      value={customCategory}
-                      onChange={(e) => setCustomCategory(e.target.value)}
-                      className={styles.input}
-                      placeholder="Enter new category..."
-                      required
-                    />
-                  )}
-                </div>
-              </div>
-              <div className={styles.formGroup}>
-                <label htmlFor="description">Short Description *</label>
-                <textarea
-                  id="description"
-                  value={description}
-                  onChange={(e) => setDescription(e.target.value)}
-                  className={styles.textarea}
-                  rows={3}
-                  placeholder="Brief wine description for wine cards..."
-                  required
-                  disabled={isSaving}
-                />
-                <small className={styles.charCount}>
-                  {description.length} characters
-                </small>
-              </div>
-            </section>
 
-            <section className={styles.formSection}>
-              <h3 className={styles.sectionTitle}>Visibility</h3>
-              <div className={styles.visibilityRow}>
-                <div className={styles.visibilityInfo}>
-                  <span className={styles.visibilityLabel}>
-                    Show on public website
-                  </span>
-                  <span className={styles.visibilityHint}>
-                    When off, this wine will not appear on the public wines page.
-                  </span>
-                </div>
-                <button
-                  type="button"
-                  className={`${styles.toggleSwitch} ${visible ? styles.toggleOn : styles.toggleOff}`}
-                  onClick={() => setVisible(!visible)}
-                  disabled={isSaving}
-                  aria-label={visible ? "Hide wine" : "Show wine"}
-                >
-                  <span className={styles.toggleThumb} />
-                </button>
-              </div>
-            </section>
-
+            {/* 1. Image Upload */}
             <section className={styles.formSection}>
               <h3 className={styles.sectionTitle}>Wine Image</h3>
               <div className={styles.formGroup}>
@@ -355,8 +244,7 @@ export default function WineEditForm({
                   </div>
                   {selectedFile && (
                     <small className={styles.fileInfo}>
-                      Selected: {selectedFile.name} (
-                      {Math.round(selectedFile.size / 1024)}KB)
+                      Selected: {selectedFile.name} ({Math.round(selectedFile.size / 1024)}KB)
                     </small>
                   )}
                   <small className={styles.helpText}>
@@ -366,70 +254,243 @@ export default function WineEditForm({
               </div>
             </section>
 
+            {/* 2. Visibility */}
             <section className={styles.formSection}>
-              <h3 className={styles.sectionTitle}>Quality & Certifications</h3>
-              <div className={styles.formRow}>
-                <div className={styles.formGroup}>
-                  <label htmlFor="sustainability">Sustainability</label>
-                  <input
-                    type="text"
-                    id="sustainability"
-                    value={sustainability}
-                    onChange={(e) => setSustainability(e.target.value)}
-                    className={styles.input}
-                    placeholder="Sustainable practices..."
-                    disabled={isSaving}
-                  />
+              <h3 className={styles.sectionTitle}>Visibility</h3>
+              <div className={styles.visibilityRow}>
+                <div className={styles.visibilityInfo}>
+                  <span className={styles.visibilityLabel}>Show on public website</span>
+                  <span className={styles.visibilityHint}>
+                    When off, this wine will not appear on the public wines page.
+                  </span>
                 </div>
-                <div className={styles.formGroup}>
-                  <label htmlFor="certification">Certification</label>
-                  <input
-                    type="text"
-                    id="certification"
-                    value={certification}
-                    onChange={(e) => setCertification(e.target.value)}
-                    className={styles.input}
-                    placeholder="Wine certifications..."
-                    disabled={isSaving}
-                  />
-                </div>
-              </div>
-              <div className={styles.formRow}>
-                <div className={styles.formGroup}>
-                  <div className={styles.checkboxGroup}>
-                    <input
-                      type="checkbox"
-                      id="vegan"
-                      checked={vegan}
-                      onChange={(e) => setVegan(e.target.checked)}
-                      className={styles.checkbox}
-                      disabled={isSaving}
-                    />
-                    <label htmlFor="vegan" className={styles.checkboxLabel}>
-                      Vegan-friendly
-                    </label>
-                  </div>
-                </div>
-                <div className={styles.formGroup}>
-                  <div className={styles.checkboxGroup}>
-                    <input
-                      type="checkbox"
-                      id="allergens"
-                      checked={allergens}
-                      onChange={(e) => setAllergens(e.target.checked)}
-                      className={styles.checkbox}
-                      disabled={isSaving}
-                    />
-                    <label htmlFor="allergens" className={styles.checkboxLabel}>
-                      Contains allergens
-                    </label>
-                  </div>
-                </div>
+                <button
+                  type="button"
+                  className={`${styles.toggleSwitch} ${visible ? styles.toggleOn : styles.toggleOff}`}
+                  onClick={() => setVisible(!visible)}
+                  disabled={isSaving}
+                  aria-label={visible ? "Hide wine" : "Show wine"}
+                >
+                  <span className={styles.toggleThumb} />
+                </button>
               </div>
             </section>
 
+            {/* 3–16. Main fields */}
+            <section className={styles.formSection}>
+              <h3 className={styles.sectionTitle}>Basic Information</h3>
+
+              {/* 3. Name */}
+              <div className={styles.formGroup}>
+                <label htmlFor="name">Wine Name *</label>
+                <textarea
+                  id="name"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  className={styles.textarea}
+                  rows={1}
+                  placeholder="Wine name..."
+                  required
+                  disabled={isSaving}
+                />
+              </div>
+
+              {/* 4. Summary/Description */}
+              <div className={styles.formGroup}>
+                <label htmlFor="description">Summary *</label>
+                <textarea
+                  id="description"
+                  value={description}
+                  onChange={(e) => setDescription(e.target.value)}
+                  className={styles.textarea}
+                  rows={3}
+                  placeholder="Brief wine description for wine cards..."
+                  required
+                  disabled={isSaving}
+                />
+                <small className={styles.charCount}>{description.length} characters</small>
+              </div>
+
+              {/* 5. Cellar Name */}
+              <div className={styles.formGroup}>
+                <label htmlFor="cellarName">Cellar Name</label>
+                <textarea
+                  id="cellarName"
+                  value={cellarName}
+                  onChange={(e) => setCellarName(e.target.value)}
+                  className={styles.textarea}
+                  rows={1}
+                  placeholder="Iberieli"
+                  disabled={isSaving}
+                />
+              </div>
+
+              {/* 6. Winemaker */}
+              <div className={styles.formGroup}>
+                <label htmlFor="winemaker">Winemaker</label>
+                <textarea
+                  id="winemaker"
+                  value={winemaker}
+                  onChange={(e) => setWinemaker(e.target.value)}
+                  className={styles.textarea}
+                  rows={1}
+                  placeholder="Zurab Topuridze"
+                  disabled={isSaving}
+                />
+              </div>
+
+              <div className={styles.formRow}>
+                {/* 7. Grape Variety */}
+                <div className={styles.formGroup}>
+                  <label htmlFor="grapeBlend">Grape Variety *</label>
+                  <textarea
+                    id="grapeBlend"
+                    value={grapeBlend}
+                    onChange={(e) => setGrapeBlend(e.target.value)}
+                    className={styles.textarea}
+                    rows={1}
+                    placeholder="e.g., Saperavi, Rkatsiteli..."
+                    required
+                    disabled={isSaving}
+                  />
+                </div>
+
+                {/* 8. Alcohol Level */}
+                <div className={styles.formGroup}>
+                  <label htmlFor="alcoholLevel">Alcohol Level</label>
+                  <textarea
+                    id="alcoholLevel"
+                    value={alcoholLevel}
+                    onChange={(e) => setAlcoholLevel(e.target.value)}
+                    className={styles.textarea}
+                    rows={1}
+                    placeholder="e.g., 12.5%"
+                    disabled={isSaving}
+                  />
+                </div>
+              </div>
+
+              <div className={styles.formRow}>
+                {/* 9. Location */}
+                <div className={styles.formGroup}>
+                  <label htmlFor="location">Location *</label>
+                  <textarea
+                    id="location"
+                    value={location}
+                    onChange={(e) => setLocation(e.target.value)}
+                    className={styles.textarea}
+                    rows={1}
+                    placeholder="e.g., Kakheti, Tsinandali..."
+                    required
+                    disabled={isSaving}
+                  />
+                </div>
+
+                {/* Category select (kept as select) */}
+                <div className={styles.formGroup}>
+                  <label htmlFor="category">Category *</label>
+                  <select
+                    id="category"
+                    value={showCustomCategory ? "custom" : category}
+                    onChange={(e) => handleCategoryChange(e.target.value)}
+                    className={styles.select}
+                    required
+                    disabled={isSaving}
+                  >
+                    <option value="">Select category...</option>
+                    {existingCategories.map((cat) => (
+                      <option key={cat} value={cat}>{cat}</option>
+                    ))}
+                    <option value="custom">+ Add new category</option>
+                  </select>
+                  {showCustomCategory && (
+                    <textarea
+                      id="customCategory"
+                      value={customCategory}
+                      onChange={(e) => setCustomCategory(e.target.value)}
+                      className={`${styles.textarea} ${styles.customCategoryInput}`}
+                      rows={1}
+                      placeholder="Enter new category..."
+                      aria-label="Custom category name"
+                      required
+                    />
+                  )}
+                </div>
+              </div>
+
+              {/* 10. Certification */}
+              <div className={styles.formGroup}>
+                <label htmlFor="certification">Certification</label>
+                <textarea
+                  id="certification"
+                  value={certification}
+                  onChange={(e) => setCertification(e.target.value)}
+                  className={styles.textarea}
+                  rows={2}
+                  placeholder="Wine certifications..."
+                  disabled={isSaving}
+                />
+              </div>
+
+              {/* 11. In Stock toggle */}
+              <div className={styles.toggleRow}>
+                <div className={styles.visibilityInfo}>
+                  <span className={styles.visibilityLabel}>In Stock</span>
+                  <span className={styles.visibilityHint}>
+                    Toggle off if this wine is currently out of stock.
+                  </span>
+                </div>
+                <button
+                  type="button"
+                  className={`${styles.toggleSwitch} ${inStock ? styles.toggleOn : styles.toggleOff}`}
+                  onClick={() => setInStock(!inStock)}
+                  disabled={isSaving}
+                  aria-label={inStock ? "Mark out of stock" : "Mark in stock"}
+                >
+                  <span className={styles.toggleThumb} />
+                </button>
+              </div>
+
+              {/* 12. Vegan toggle */}
+              <div className={styles.toggleRow}>
+                <div className={styles.visibilityInfo}>
+                  <span className={styles.visibilityLabel}>Vegan-friendly</span>
+                  <span className={styles.visibilityHint}>Toggle on if this wine is vegan.</span>
+                </div>
+                <button
+                  type="button"
+                  className={`${styles.toggleSwitch} ${vegan ? styles.toggleOn : styles.toggleOff}`}
+                  onClick={() => setVegan(!vegan)}
+                  disabled={isSaving}
+                  aria-label={vegan ? "Not vegan" : "Vegan"}
+                >
+                  <span className={styles.toggleThumb} />
+                </button>
+              </div>
+
+              {/* 13. Allergens toggle */}
+              <div className={styles.visibilityRow}>
+                <div className={styles.visibilityInfo}>
+                  <span className={styles.visibilityLabel}>Contains Allergens</span>
+                  <span className={styles.visibilityHint}>Toggle on if this wine contains allergens.</span>
+                </div>
+                <button
+                  type="button"
+                  className={`${styles.toggleSwitch} ${allergens ? styles.toggleOn : styles.toggleOff}`}
+                  onClick={() => setAllergens(!allergens)}
+                  disabled={isSaving}
+                  aria-label={allergens ? "No allergens" : "Has allergens"}
+                >
+                  <span className={styles.toggleThumb} />
+                </button>
+              </div>
+            </section>
+
+            {/* Tasting & Pairing */}
             <section className={styles.formSection}>
               <h3 className={styles.sectionTitle}>Tasting & Pairing</h3>
+
+              {/* 14. Tasting Notes */}
               <div className={styles.formGroup}>
                 <label htmlFor="tastingNotes">Tasting Notes *</label>
                 <textarea
@@ -442,10 +503,10 @@ export default function WineEditForm({
                   required
                   disabled={isSaving}
                 />
-                <small className={styles.charCount}>
-                  {tastingNotes.length} characters
-                </small>
+                <small className={styles.charCount}>{tastingNotes.length} characters</small>
               </div>
+
+              {/* 15. Food Pairing */}
               <div className={styles.formGroup}>
                 <label htmlFor="foodRecommendation">Food Pairing</label>
                 <textarea
@@ -460,126 +521,133 @@ export default function WineEditForm({
               </div>
             </section>
 
+            {/* Terroir & Viticulture */}
             <section className={styles.formSection}>
               <h3 className={styles.sectionTitle}>Terroir & Viticulture</h3>
-              <div className={styles.formRow}>
-                <div className={styles.formGroup}>
-                  <label htmlFor="climate">Climate</label>
-                  <input
-                    type="text"
-                    id="climate"
-                    value={climate}
-                    onChange={(e) => setClimate(e.target.value)}
-                    className={styles.input}
-                    placeholder="Climate conditions..."
-                    disabled={isSaving}
-                  />
-                </div>
-                <div className={styles.formGroup}>
-                  <label htmlFor="terroir">Terroir</label>
-                  <input
-                    type="text"
-                    id="terroir"
-                    value={terroir}
-                    onChange={(e) => setTerroir(e.target.value)}
-                    className={styles.input}
-                    placeholder="Soil composition, terrain..."
-                    disabled={isSaving}
-                  />
-                </div>
+
+              {/* 16. Microclimate */}
+              <div className={styles.formGroup}>
+                <label htmlFor="climate">Microclimate</label>
+                <textarea
+                  id="climate"
+                  value={climate}
+                  onChange={(e) => setClimate(e.target.value)}
+                  className={styles.textarea}
+                  rows={2}
+                  placeholder="Microclimate conditions..."
+                  disabled={isSaving}
+                />
               </div>
-              <div className={styles.formRow}>
-                <div className={styles.formGroup}>
-                  <label htmlFor="viticulture">Viticulture</label>
-                  <input
-                    type="text"
-                    id="viticulture"
-                    value={viticulture}
-                    onChange={(e) => setViticulture(e.target.value)}
-                    className={styles.input}
-                    placeholder="Vineyard practices..."
-                    disabled={isSaving}
-                  />
-                </div>
-                <div className={styles.formGroup}>
-                  <label htmlFor="yields">Yields</label>
-                  <input
-                    type="text"
-                    id="yields"
-                    value={yields}
-                    onChange={(e) => setYields(e.target.value)}
-                    className={styles.input}
-                    placeholder="Yield information..."
-                    disabled={isSaving}
-                  />
-                </div>
+
+              {/* 17. Terroir */}
+              <div className={styles.formGroup}>
+                <label htmlFor="terroir">Terroir</label>
+                <textarea
+                  id="terroir"
+                  value={terroir}
+                  onChange={(e) => setTerroir(e.target.value)}
+                  className={styles.textarea}
+                  rows={2}
+                  placeholder="Soil composition, terrain..."
+                  disabled={isSaving}
+                />
+              </div>
+
+              {/* 18. Viticulture */}
+              <div className={styles.formGroup}>
+                <label htmlFor="viticulture">Viticulture</label>
+                <textarea
+                  id="viticulture"
+                  value={viticulture}
+                  onChange={(e) => setViticulture(e.target.value)}
+                  className={styles.textarea}
+                  rows={3}
+                  placeholder="Vineyard practices..."
+                  disabled={isSaving}
+                />
+              </div>
+
+              {/* 19. Yields */}
+              <div className={styles.formGroup}>
+                <label htmlFor="yields">Yields</label>
+                <textarea
+                  id="yields"
+                  value={yields}
+                  onChange={(e) => setYields(e.target.value)}
+                  className={styles.textarea}
+                  rows={2}
+                  placeholder="Yield information..."
+                  disabled={isSaving}
+                />
               </div>
             </section>
 
+            {/* 20. Vinification Process */}
             <section className={styles.formSection}>
               <h3 className={styles.sectionTitle}>Vinification Process</h3>
               <div className={styles.formRow}>
                 <div className={styles.formGroup}>
                   <label htmlFor="harvest">Harvest</label>
-                  <input type="text" id="harvest" value={harvest} onChange={(e) => setHarvest(e.target.value)} className={styles.input} placeholder="Harvest details..." disabled={isSaving} />
+                  <textarea id="harvest" value={harvest} onChange={(e) => setHarvest(e.target.value)} className={styles.textarea} rows={2} placeholder="Harvest details..." disabled={isSaving} />
                 </div>
                 <div className={styles.formGroup}>
                   <label htmlFor="processing">Processing</label>
-                  <input type="text" id="processing" value={processing} onChange={(e) => setProcessing(e.target.value)} className={styles.input} placeholder="Processing methods..." disabled={isSaving} />
+                  <textarea id="processing" value={processing} onChange={(e) => setProcessing(e.target.value)} className={styles.textarea} rows={2} placeholder="Processing methods..." disabled={isSaving} />
                 </div>
               </div>
               <div className={styles.formRow}>
                 <div className={styles.formGroup}>
                   <label htmlFor="fermentation">Fermentation</label>
-                  <input type="text" id="fermentation" value={fermentation} onChange={(e) => setFermentation(e.target.value)} className={styles.input} placeholder="Fermentation process..." disabled={isSaving} />
+                  <textarea id="fermentation" value={fermentation} onChange={(e) => setFermentation(e.target.value)} className={styles.textarea} rows={2} placeholder="Fermentation process..." disabled={isSaving} />
                 </div>
                 <div className={styles.formGroup}>
                   <label htmlFor="fermentationTime">Fermentation Time</label>
-                  <input type="text" id="fermentationTime" value={fermentationTime} onChange={(e) => setFermentationTime(e.target.value)} className={styles.input} placeholder="Duration..." disabled={isSaving} />
+                  <textarea id="fermentationTime" value={fermentationTime} onChange={(e) => setFermentationTime(e.target.value)} className={styles.textarea} rows={2} placeholder="Duration..." disabled={isSaving} />
                 </div>
               </div>
               <div className={styles.formRow}>
                 <div className={styles.formGroup}>
                   <label htmlFor="fermentationVessel">Fermentation Vessel</label>
-                  <input type="text" id="fermentationVessel" value={fermentationVessel} onChange={(e) => setFermentationVessel(e.target.value)} className={styles.input} placeholder="Vessel type..." disabled={isSaving} />
+                  <textarea id="fermentationVessel" value={fermentationVessel} onChange={(e) => setFermentationVessel(e.target.value)} className={styles.textarea} rows={2} placeholder="Vessel type..." disabled={isSaving} />
                 </div>
                 <div className={styles.formGroup}>
                   <label htmlFor="maceration">Maceration</label>
-                  <input type="text" id="maceration" value={maceration} onChange={(e) => setMaceration(e.target.value)} className={styles.input} placeholder="Maceration details..." disabled={isSaving} />
+                  <textarea id="maceration" value={maceration} onChange={(e) => setMaceration(e.target.value)} className={styles.textarea} rows={2} placeholder="Maceration details..." disabled={isSaving} />
                 </div>
               </div>
               <div className={styles.formRow}>
                 <div className={styles.formGroup}>
                   <label htmlFor="macerationVessel">Maceration Vessel</label>
-                  <input type="text" id="macerationVessel" value={macerationVessel} onChange={(e) => setMacerationVessel(e.target.value)} className={styles.input} placeholder="Vessel type..." disabled={isSaving} />
+                  <textarea id="macerationVessel" value={macerationVessel} onChange={(e) => setMacerationVessel(e.target.value)} className={styles.textarea} rows={2} placeholder="Vessel type..." disabled={isSaving} />
                 </div>
                 <div className={styles.formGroup}>
                   <label htmlFor="maturationTime">Maturation Time</label>
-                  <input type="text" id="maturationTime" value={maturationTime} onChange={(e) => setMaturationTime(e.target.value)} className={styles.input} placeholder="Aging duration..." disabled={isSaving} />
+                  <textarea id="maturationTime" value={maturationTime} onChange={(e) => setMaturationTime(e.target.value)} className={styles.textarea} rows={2} placeholder="Aging duration..." disabled={isSaving} />
                 </div>
               </div>
               <div className={styles.formRow}>
                 <div className={styles.formGroup}>
                   <label htmlFor="maturationVessel">Maturation Vessel</label>
-                  <input type="text" id="maturationVessel" value={maturationVessel} onChange={(e) => setMaturationVessel(e.target.value)} className={styles.input} placeholder="Vessel type..." disabled={isSaving} />
+                  <textarea id="maturationVessel" value={maturationVessel} onChange={(e) => setMaturationVessel(e.target.value)} className={styles.textarea} rows={2} placeholder="Vessel type..." disabled={isSaving} />
                 </div>
                 <div className={styles.formGroup}>
                   <label htmlFor="filtration">Filtration</label>
-                  <input type="text" id="filtration" value={filtration} onChange={(e) => setFiltration(e.target.value)} className={styles.input} placeholder="Filtration process..." disabled={isSaving} />
+                  <textarea id="filtration" value={filtration} onChange={(e) => setFiltration(e.target.value)} className={styles.textarea} rows={2} placeholder="Filtration process..." disabled={isSaving} />
                 </div>
               </div>
               <div className={styles.formRow}>
                 <div className={styles.formGroup}>
                   <label htmlFor="fining">Fining</label>
-                  <input type="text" id="fining" value={fining} onChange={(e) => setFining(e.target.value)} className={styles.input} placeholder="Fining agents..." disabled={isSaving} />
+                  <textarea id="fining" value={fining} onChange={(e) => setFining(e.target.value)} className={styles.textarea} rows={2} placeholder="Fining agents..." disabled={isSaving} />
                 </div>
                 <div className={styles.formGroup}>
                   <label htmlFor="sulphur">Sulphur</label>
-                  <input type="text" id="sulphur" value={sulphur} onChange={(e) => setSulphur(e.target.value)} className={styles.input} placeholder="Sulphur usage..." disabled={isSaving} />
+                  <textarea id="sulphur" value={sulphur} onChange={(e) => setSulphur(e.target.value)} className={styles.textarea} rows={2} placeholder="Sulphur usage..." disabled={isSaving} />
                 </div>
               </div>
             </section>
 
+            {/* 21. Save + Cancel */}
             <div className={styles.formActions}>
               <Button type="submit" disabled={isSaving} className={styles.saveButton}>
                 {isSaving ? "Saving..." : "Save All Changes"}
@@ -589,6 +657,7 @@ export default function WineEditForm({
               </Button>
             </div>
 
+            {/* 22. Danger Zone */}
             <div className={styles.dangerZone}>
               <h3 className={styles.dangerTitle}>Danger Zone</h3>
               <div className={styles.dangerContent}>
