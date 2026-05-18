@@ -6,6 +6,7 @@ import { wines as winesTable } from "@/lib/schema";
 import { eq } from "drizzle-orm";
 import { mapDbWineToFrontend } from "@/lib/wineMapping";
 import { IWine } from "@/data/types";
+import AnimateIn from "@/components/atoms/AnimateIn";
 
 export const metadata: Metadata = {
   title: "Wine Collection",
@@ -50,14 +51,16 @@ export default async function WinesPage() {
   return (
     <div className={style.winesPage}>
       <div className="container">
-        <header className={style.header}>
-          <h1>Our Wine Collection</h1>
-          <p className={style.subtitle}>
-            Authentic Georgian natural wines crafted using traditional Kvevri
-            winemaking methods from native grape varieties grown in Guria and
-            Kakheti regions.
-          </p>
-        </header>
+        <AnimateIn preset="fadeUp" eager>
+          <header className={style.header}>
+            <h1>Our Wine Collection</h1>
+            <p className={style.subtitle}>
+              Authentic Georgian natural wines crafted using traditional Kvevri
+              winemaking methods from native grape varieties grown in Guria and
+              Kakheti regions.
+            </p>
+          </header>
+        </AnimateIn>
 
         {allWines.length === 0 ? (
           <div className={style.noWines}>
@@ -70,12 +73,16 @@ export default async function WinesPage() {
 
             return (
               <section key={category} className={style.category}>
-                <h2 className={style.categoryTitle}>
-                  {category.charAt(0).toUpperCase() + category.slice(1)} Wines
-                </h2>
+                <AnimateIn preset="fadeUp">
+                  <h2 className={style.categoryTitle}>
+                    {category.charAt(0).toUpperCase() + category.slice(1)} Wines
+                  </h2>
+                </AnimateIn>
                 <div className={style.wineGrid}>
-                  {categoryWines.map((wine) => (
-                    <WineCard key={wine.id} wine={wine} />
+                  {categoryWines.map((wine, index) => (
+                    <AnimateIn key={wine.id} preset="fadeUp" delay={index * 0.08}>
+                      <WineCard wine={wine} />
+                    </AnimateIn>
                   ))}
                 </div>
               </section>

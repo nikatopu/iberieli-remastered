@@ -7,6 +7,7 @@ import { wines as winesTable } from "@/lib/schema";
 import { eq } from "drizzle-orm";
 import { mapDbWineToFrontend } from "@/lib/wineMapping";
 import FeaturedWines from "@/components/organisms/FeaturedWines";
+import AnimateIn from "@/components/atoms/AnimateIn";
 
 export default async function Home() {
   const dbWines = await db
@@ -22,34 +23,38 @@ export default async function Home() {
       <section className={style.hero}>
         <div className="container">
           <div className={style.heroContent}>
-            <div className={style.heroText}>
-              <h1>Authentic Georgian Natural Wines</h1>
-              <p className={style.heroSubtitle}>
-                We maintain authentic tradition of winemaking in Georgia using
-                traditional Kvevri methods
-              </p>
-              <p>
-                Producing unique natural wines from native grapes in the Guria
-                and Kakheti regions
-              </p>
-              <div className={style.heroButtons}>
-                <Link href="/wines">
-                  <Button size="lg">Explore Our Wines</Button>
-                </Link>
-                <Link href="/about">
-                  <Button variant="outline" size="lg">
-                    About Us
-                  </Button>
-                </Link>
+            <AnimateIn preset="fadeUp" eager>
+              <div className={style.heroText}>
+                <h1>Authentic Georgian Natural Wines</h1>
+                <p className={style.heroSubtitle}>
+                  We maintain authentic tradition of winemaking in Georgia using
+                  traditional Kvevri methods
+                </p>
+                <p>
+                  Producing unique natural wines from native grapes in the Guria
+                  and Kakheti regions
+                </p>
+                <div className={style.heroButtons}>
+                  <Link href="/wines">
+                    <Button size="lg">Explore Our Wines</Button>
+                  </Link>
+                  <Link href="/about">
+                    <Button variant="outline" size="lg">
+                      About Us
+                    </Button>
+                  </Link>
+                </div>
               </div>
-            </div>
-            <div className={style.heroImage}>
-              <img
-                src="/photos/Wines 1.webp"
-                alt="Georgian wines"
-                className={style.wineImage}
-              />
-            </div>
+            </AnimateIn>
+            <AnimateIn preset="fadeIn" eager delay={0.2}>
+              <div className={style.heroImage}>
+                <img
+                  src="/photos/Wines 1.webp"
+                  alt="Georgian wines"
+                  className={style.wineImage}
+                />
+              </div>
+            </AnimateIn>
           </div>
         </div>
       </section>
@@ -73,31 +78,35 @@ export default async function Home() {
       <section className={style.tradition}>
         <div className="container">
           <div className={style.traditionContent}>
-            <div className={style.traditionImage}>
-              <img
-                src="/photos/Vkreft.webp"
-                alt="Traditional winemaking"
-                className={style.image}
-              />
-            </div>
-            <div className={style.traditionText}>
-              <h2>Traditional Kvevri Winemaking</h2>
-              <p>
-                Back to the basics and restart winemaking. We produce natural
-                wines from Georgian native grape varieties using the ancient
-                Kvevri method - clay vessels buried underground that have been
-                used for over 8,000 years.
-              </p>
-              <p>
-                Our family business operates in both the Guria Region of West
-                Georgia and the Kakheti Region of East Georgia, maintaining
-                authentic traditions while setting standards for natural wine
-                production.
-              </p>
-              <Link href="/about">
-                <Button variant="outline">Learn More About Us</Button>
-              </Link>
-            </div>
+            <AnimateIn preset="fadeLeft">
+              <div className={style.traditionImage}>
+                <img
+                  src="/photos/Vkreft.webp"
+                  alt="Traditional winemaking"
+                  className={style.image}
+                />
+              </div>
+            </AnimateIn>
+            <AnimateIn preset="fadeRight" delay={0.1}>
+              <div className={style.traditionText}>
+                <h2>Traditional Kvevri Winemaking</h2>
+                <p>
+                  Back to the basics and restart winemaking. We produce natural
+                  wines from Georgian native grape varieties using the ancient
+                  Kvevri method - clay vessels buried underground that have been
+                  used for over 8,000 years.
+                </p>
+                <p>
+                  Our family business operates in both the Guria Region of West
+                  Georgia and the Kakheti Region of East Georgia, maintaining
+                  authentic traditions while setting standards for natural wine
+                  production.
+                </p>
+                <Link href="/about">
+                  <Button variant="outline">Learn More About Us</Button>
+                </Link>
+              </div>
+            </AnimateIn>
           </div>
         </div>
       </section>

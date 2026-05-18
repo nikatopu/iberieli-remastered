@@ -9,6 +9,7 @@ import { eq, and } from "drizzle-orm";
 import { mapDbWineToFrontend } from "@/lib/wineMapping";
 import { IWine } from "@/data/types";
 import style from "./page.module.scss";
+import AnimateIn from "@/components/atoms/AnimateIn";
 
 interface Props {
   params: Promise<{ id: string }>;
@@ -95,126 +96,133 @@ export default async function WinePage({ params }: Props) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       <div className="container">
-        <div className={style.breadcrumb}>
-          <Link href="/wines">← Back to Wines</Link>
-        </div>
-
-        <p className={style.summary}>{wine.description}</p>
-
-        <div className={style.wineHeader}>
-          <div className={style.wineImage}>
-            <img src={wine.image} alt={wine.name} className={style.image} />
+        <AnimateIn preset="fadeIn" eager>
+          <div className={style.breadcrumb}>
+            <Link href="/wines">← Back to Wines</Link>
           </div>
-          <div className={style.wineInfo}>
-            <h1>{wine.name}</h1>
-            <div className={style.basicInfo}>
-              <div className={style.infoItem}>
-                <strong>Location:</strong> {wine.location}
-              </div>
-              <div className={style.infoItem}>
-                <strong>Grape/Blend:</strong> {wine.grapeBlend}
-              </div>
-              <div className={style.infoItem}>
-                <strong>Category:</strong>
-                <span
-                  className={`${style.category} ${style[`category--${wine.category}`]}`}
-                >
-                  {wine.category}
-                </span>
-              </div>
-              <div className={style.infoItem}>
-                <strong>Cellar:</strong> {wine.cellarName}
-              </div>
-              <div className={style.infoItem}>
-                <strong>Winemaker:</strong> {wine.winemaker}
-              </div>
-              {wine.alcoholLevel && (
+          <p className={style.summary}>{wine.description}</p>
+        </AnimateIn>
+
+        <AnimateIn preset="fadeUp" eager delay={0.1}>
+          <div className={style.wineHeader}>
+            <div className={style.wineImage}>
+              <img src={wine.image} alt={wine.name} className={style.image} />
+            </div>
+            <div className={style.wineInfo}>
+              <h1>{wine.name}</h1>
+              <div className={style.basicInfo}>
                 <div className={style.infoItem}>
-                  <strong>Alcohol:</strong> {wine.alcoholLevel}
+                  <strong>Location:</strong> {wine.location}
                 </div>
-              )}
-              <div className={style.infoItem}>
-                <strong>Availability:</strong>
-                <span className={wine.inStock ? style.badgeInStock : style.badgeOutOfStock}>
-                  {wine.inStock ? "In Stock" : "Out of Stock"}
-                </span>
-              </div>
-              <div className={style.infoItem}>
-                <strong>Vegan:</strong> {wine.vegan ? "Yes" : "No"}
+                <div className={style.infoItem}>
+                  <strong>Grape/Blend:</strong> {wine.grapeBlend}
+                </div>
+                <div className={style.infoItem}>
+                  <strong>Category:</strong>
+                  <span
+                    className={`${style.category} ${style[`category--${wine.category}`]}`}
+                  >
+                    {wine.category}
+                  </span>
+                </div>
+                <div className={style.infoItem}>
+                  <strong>Cellar:</strong> {wine.cellarName}
+                </div>
+                <div className={style.infoItem}>
+                  <strong>Winemaker:</strong> {wine.winemaker}
+                </div>
+                {wine.alcoholLevel && (
+                  <div className={style.infoItem}>
+                    <strong>Alcohol:</strong> {wine.alcoholLevel}
+                  </div>
+                )}
+                <div className={style.infoItem}>
+                  <strong>Availability:</strong>
+                  <span className={wine.inStock ? style.badgeInStock : style.badgeOutOfStock}>
+                    {wine.inStock ? "In Stock" : "Out of Stock"}
+                  </span>
+                </div>
+                <div className={style.infoItem}>
+                  <strong>Vegan:</strong> {wine.vegan ? "Yes" : "No"}
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        </AnimateIn>
 
         <div className={style.wineDetails}>
-          <WineDetailSection title="Tasting Notes">
-            <p>{wine.tastingNotes}</p>
-          </WineDetailSection>
-
-          <WineDetailSection title="Food Recommendations">
-            <p>{wine.foodRecommendation}</p>
-          </WineDetailSection>
-
-          <WineDetailSection title="Climate & Terroir">
-            <div className={style.subsection}>
-              <h4>Climate</h4>
-              <p>{wine.climate}</p>
-            </div>
-            <div className={style.subsection}>
-              <h4>Terroir</h4>
-              <p>{wine.terroir}</p>
-            </div>
-          </WineDetailSection>
-
-          <WineDetailSection title="Production">
-            <div className={style.subsection}>
-              <h4>Viticulture</h4>
-              <p>{wine.viticulture}</p>
-            </div>
-            <div className={style.subsection}>
-              <h4>Yields</h4>
-              <p>{wine.yields}</p>
-            </div>
-          </WineDetailSection>
-
-          <WineDetailSection title="Vinification">
-            <div className={style.vinification}>
-              {(
-                [
-                  ["Harvest", wine.vinification.harvest],
-                  ["Processing", wine.vinification.processing],
-                  ["Fermentation", wine.vinification.fermentation],
-                  ["Fermentation Time", wine.vinification.fermentationTime],
-                  ["Fermentation Vessel", wine.vinification.fermentationVessel],
-                  ["Maceration", wine.vinification.maceration],
-                  ["Maceration Vessel", wine.vinification.macerationVessel],
-                  ["Maturation Time", wine.vinification.maturationTime],
-                  ["Maturation Vessel", wine.vinification.maturationVessel],
-                  ["Filtration", wine.vinification.filtration],
-                  ["Fining", wine.vinification.fining],
-                  ["Sulphur", wine.vinification.sulphur],
-                ] as [string, string | undefined][]
-              )
-                .filter(([, v]) => v)
-                .map(([label, value]) => (
-                  <div key={label} className={style.vinificationItem}>
-                    <strong>{label}:</strong> {value}
-                  </div>
-                ))}
-            </div>
-          </WineDetailSection>
+          {[
+            <WineDetailSection key="tasting" title="Tasting Notes">
+              <p>{wine.tastingNotes}</p>
+            </WineDetailSection>,
+            <WineDetailSection key="food" title="Food Recommendations">
+              <p>{wine.foodRecommendation}</p>
+            </WineDetailSection>,
+            <WineDetailSection key="terroir" title="Climate & Terroir">
+              <div className={style.subsection}>
+                <h4>Climate</h4>
+                <p>{wine.climate}</p>
+              </div>
+              <div className={style.subsection}>
+                <h4>Terroir</h4>
+                <p>{wine.terroir}</p>
+              </div>
+            </WineDetailSection>,
+            <WineDetailSection key="production" title="Production">
+              <div className={style.subsection}>
+                <h4>Viticulture</h4>
+                <p>{wine.viticulture}</p>
+              </div>
+              <div className={style.subsection}>
+                <h4>Yields</h4>
+                <p>{wine.yields}</p>
+              </div>
+            </WineDetailSection>,
+            <WineDetailSection key="vinification" title="Vinification">
+              <div className={style.vinification}>
+                {(
+                  [
+                    ["Harvest", wine.vinification.harvest],
+                    ["Processing", wine.vinification.processing],
+                    ["Fermentation", wine.vinification.fermentation],
+                    ["Fermentation Time", wine.vinification.fermentationTime],
+                    ["Fermentation Vessel", wine.vinification.fermentationVessel],
+                    ["Maceration", wine.vinification.maceration],
+                    ["Maceration Vessel", wine.vinification.macerationVessel],
+                    ["Maturation Time", wine.vinification.maturationTime],
+                    ["Maturation Vessel", wine.vinification.maturationVessel],
+                    ["Filtration", wine.vinification.filtration],
+                    ["Fining", wine.vinification.fining],
+                    ["Sulphur", wine.vinification.sulphur],
+                  ] as [string, string | undefined][]
+                )
+                  .filter(([, v]) => v)
+                  .map(([label, value]) => (
+                    <div key={label} className={style.vinificationItem}>
+                      <strong>{label}:</strong> {value}
+                    </div>
+                  ))}
+              </div>
+            </WineDetailSection>,
+          ].map((section, index) => (
+            <AnimateIn key={index} preset="fadeUp" delay={index * 0.07}>
+              {section}
+            </AnimateIn>
+          ))}
         </div>
 
-        <div className={style.actions}>
-          <Link href="/contact">
-            <Button size="lg">Contact for Orders</Button>
-          </Link>
-          <Link href="/wines">
-            <Button variant="outline" size="lg">
-              View Other Wines
-            </Button>
-          </Link>
-        </div>
+        <AnimateIn preset="fadeUp">
+          <div className={style.actions}>
+            <Link href="/contact">
+              <Button size="lg">Contact for Orders</Button>
+            </Link>
+            <Link href="/wines">
+              <Button variant="outline" size="lg">
+                View Other Wines
+              </Button>
+            </Link>
+          </div>
+        </AnimateIn>
       </div>
     </div>
   );
