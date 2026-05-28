@@ -44,6 +44,7 @@ export default function WineEditForm({
   const [climate, setClimate] = useState(wine.climate);
   const [terroir, setTerroir] = useState(wine.terroir);
   const [viticulture, setViticulture] = useState(wine.viticulture);
+  const [organicFarming, setOrganicFarming] = useState(wine.organicFarming ?? "");
   const [yields, setYields] = useState(wine.yields);
 
   const [harvest, setHarvest] = useState(wine.vinification?.harvest || "");
@@ -141,6 +142,7 @@ export default function WineEditForm({
       climate: climate.trim(),
       terroir: terroir.trim(),
       viticulture: viticulture.trim(),
+      organicFarming: organicFarming.trim() || undefined,
       yields: yields.trim(),
       vinification: {
         harvest: harvest.trim(),
@@ -567,7 +569,21 @@ export default function WineEditForm({
                 />
               </div>
 
-              {/* 19. Yields */}
+              {/* 19. Organic Farming */}
+              <div className={styles.formGroup}>
+                <label htmlFor="organicFarming">Organic Farming</label>
+                <textarea
+                  id="organicFarming"
+                  value={organicFarming}
+                  onChange={(e) => setOrganicFarming(e.target.value)}
+                  className={styles.textarea}
+                  rows={3}
+                  placeholder="Organic farming practices..."
+                  disabled={isSaving}
+                />
+              </div>
+
+              {/* 20. Yields */}
               <div className={styles.formGroup}>
                 <label htmlFor="yields">Yields</label>
                 <textarea

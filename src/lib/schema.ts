@@ -26,6 +26,7 @@ export const wines = pgTable("wines", {
   climate: text("climate").notNull(),
   terroir: text("terroir").notNull(),
   viticulture: text("viticulture").notNull(),
+  organicFarming: text("organic_farming"),
   yields: text("yields").notNull(),
   vinification: json("vinification").notNull(),
   image: text("image").notNull(),

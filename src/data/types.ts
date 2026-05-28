@@ -18,6 +18,7 @@ export interface IWine {
   climate: string;
   terroir: string;
   viticulture: string;
+  organicFarming?: string;
   yields: string;
   vinification: {
     harvest?: string;

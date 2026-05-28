@@ -48,6 +48,7 @@ export default function NewWinePage() {
   const [climate, setClimate] = useState("");
   const [terroir, setTerroir] = useState("");
   const [viticulture, setViticulture] = useState("");
+  const [organicFarming, setOrganicFarming] = useState("");
   const [yields, setYields] = useState("");
 
   const [harvest, setHarvest] = useState("");
@@ -158,6 +159,7 @@ export default function NewWinePage() {
           climate: climate.trim(),
           terroir: terroir.trim(),
           viticulture: viticulture.trim(),
+          organicFarming: organicFarming.trim(),
           yields: yields.trim(),
           vinification: {
             harvest: harvest.trim(),
@@ -546,7 +548,13 @@ export default function NewWinePage() {
                     <textarea id="viticulture" value={viticulture} onChange={(e) => setViticulture(e.target.value)} className={styles.textarea} rows={3} placeholder="Vineyard practices..." disabled={isSaving} />
                   </div>
 
-                  {/* 19. Yields */}
+                  {/* 19. Organic Farming */}
+                  <div className={styles.formGroup}>
+                    <label htmlFor="organicFarming">Organic Farming</label>
+                    <textarea id="organicFarming" value={organicFarming} onChange={(e) => setOrganicFarming(e.target.value)} className={styles.textarea} rows={3} placeholder="Organic farming practices..." disabled={isSaving} />
+                  </div>
+
+                  {/* 20. Yields */}
                   <div className={styles.formGroup}>
                     <label htmlFor="yields">Yields</label>
                     <textarea id="yields" value={yields} onChange={(e) => setYields(e.target.value)} className={styles.textarea} rows={2} placeholder="Yield information..." disabled={isSaving} />

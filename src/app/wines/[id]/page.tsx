@@ -173,6 +173,12 @@ export default async function WinePage({ params }: Props) {
                 <h4>Viticulture</h4>
                 <p>{wine.viticulture}</p>
               </div>
+              {wine.organicFarming && (
+                <div className={style.subsection}>
+                  <h4>Organic Farming</h4>
+                  <p>{wine.organicFarming}</p>
+                </div>
+              )}
               <div className={style.subsection}>
                 <h4>Yields</h4>
                 <p>{wine.yields}</p>
