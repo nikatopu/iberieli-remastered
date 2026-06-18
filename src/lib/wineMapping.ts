@@ -41,7 +41,7 @@ export function mapDbWineToFrontend(wine: Wine): IWine {
     climate: wine.climate,
     terroir: wine.terroir,
     viticulture: wine.viticulture,
-    organicFarming: val(wine.organicFarming ?? undefined),
+    organicFarming: wine.organicFarming ?? null,
     yields: wine.yields,
     vinification: {
       harvest: val(v.harvest),

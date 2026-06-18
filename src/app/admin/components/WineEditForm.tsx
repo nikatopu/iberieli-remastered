@@ -142,7 +142,7 @@ export default function WineEditForm({
       climate: climate.trim(),
       terroir: terroir.trim(),
       viticulture: viticulture.trim(),
-      organicFarming: organicFarming.trim(),
+      organicFarming: organicFarming?.trim() || null,
       yields: yields.trim(),
       vinification: {
         harvest: harvest.trim(),
@@ -574,7 +574,7 @@ export default function WineEditForm({
                 <label htmlFor="organicFarming">Organic Farming</label>
                 <textarea
                   id="organicFarming"
-                  value={organicFarming}
+                  value={organicFarming || ""}
                   onChange={(e) => setOrganicFarming(e.target.value)}
                   className={styles.textarea}
                   rows={3}
