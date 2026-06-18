@@ -8,7 +8,7 @@ export interface IWine {
   grapeBlend: string;
   cellarName: string;
   winemaker: string;
-  alcoholLevel?: string;
+  alcoholLevel?: string | null;
   inStock: boolean;
   certification: string;
   vegan: boolean;
@@ -18,7 +18,7 @@ export interface IWine {
   climate: string;
   terroir: string;
   viticulture: string;
-  organicFarming?: string;
+  organicFarming: string;
   yields: string;
   vinification: {
     harvest?: string;

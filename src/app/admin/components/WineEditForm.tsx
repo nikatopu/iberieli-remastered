@@ -44,7 +44,7 @@ export default function WineEditForm({
   const [climate, setClimate] = useState(wine.climate);
   const [terroir, setTerroir] = useState(wine.terroir);
   const [viticulture, setViticulture] = useState(wine.viticulture);
-  const [organicFarming, setOrganicFarming] = useState(wine.organicFarming ?? "");
+  const [organicFarming, setOrganicFarming] = useState(wine.organicFarming);
   const [yields, setYields] = useState(wine.yields);
 
   const [harvest, setHarvest] = useState(wine.vinification?.harvest || "");
@@ -131,7 +131,7 @@ export default function WineEditForm({
       category: finalCategory as "red" | "white" | "pink" | "amber",
       cellarName: cellarName.trim(),
       winemaker: winemaker.trim(),
-      alcoholLevel: alcoholLevel.trim() || undefined,
+      alcoholLevel: alcoholLevel.trim() || null,
       inStock,
       certification: certification.trim(),
       vegan,
@@ -142,7 +142,7 @@ export default function WineEditForm({
       climate: climate.trim(),
       terroir: terroir.trim(),
       viticulture: viticulture.trim(),
-      organicFarming: organicFarming.trim() || undefined,
+      organicFarming: organicFarming.trim(),
       yields: yields.trim(),
       vinification: {
         harvest: harvest.trim(),

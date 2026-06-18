@@ -27,6 +27,7 @@ function mapApiWine(apiWine: Record<string, unknown>): IWine {
     climate: apiWine.climate as string,
     terroir: apiWine.terroir as string,
     viticulture: apiWine.viticulture as string,
+    organicFarming: (apiWine.organicFarming as string) || "",
     yields: apiWine.yields as string,
     vinification: {
       harvest: vin.harvest || "",
