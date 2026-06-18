@@ -23,6 +23,7 @@ interface ApiWine {
   certification: string;
   vegan: boolean;
   allergens: boolean;
+  organicFarming: string;
   tastingNotes: string;
   foodRecommendation: string;
   climate: string;
@@ -83,6 +84,7 @@ function mapApiWineToFrontend(apiWine: ApiWine): IWine {
     climate: apiWine.climate,
     terroir: apiWine.terroir,
     viticulture: apiWine.viticulture,
+    organicFarming: apiWine.organicFarming,
     yields: apiWine.yields,
     vinification: {
       harvest: trimOrUndef(apiWine.vinification.harvest),
