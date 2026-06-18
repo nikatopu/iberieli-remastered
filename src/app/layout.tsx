@@ -3,6 +3,7 @@ import { Josefin_Sans, Merriweather, Montserrat } from "next/font/google";
 import Layout from "@/components/organisms/Layout";
 import { ContextProviderWrapper } from "@/contexts/AppContext";
 import "@/styles/globals.scss";
+import Script from "next/script";
 
 const josefinSans = Josefin_Sans({
   variable: "--font-josefin",
@@ -134,6 +135,15 @@ export default function RootLayout({
       className={`${josefinSans.variable} ${montserrat.variable} ${merriweather.variable}`}
     >
       <head>
+<Script async src="https://www.googletagmanager.com/gtag/js?id=G-TTEH8VJG7V" strategy="afterInteractive"></Script>
+<Script strategy="afterInteractive">
+  {`
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){window.dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-TTEH8VJG7V');
+  `}
+</Script>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
