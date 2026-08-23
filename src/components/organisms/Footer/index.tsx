@@ -1,6 +1,7 @@
 import { db } from "@/lib/db";
 import { contacts } from "@/lib/schema";
 import { eq } from "drizzle-orm";
+import CookieSettings from "@/components/molecules/CookieSettings";
 import style from "./Footer.module.scss";
 
 async function getOrderingContact() {
@@ -49,6 +50,7 @@ export default async function Footer() {
 
         <div className={style.footerBottom}>
           <p>&copy; {currentYear} Iberieli LLC. All rights reserved.</p>
+          <CookieSettings />
         </div>
       </div>
     </footer>

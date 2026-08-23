@@ -2,8 +2,10 @@
 
 import { ReactNode } from "react";
 import { WineProvider } from "./WineContext";
+import { ConsentProvider } from "./ConsentContext";
 
 export { useWines } from "./WineContext";
+export { useConsent } from "./ConsentContext";
 
 interface ContextProviderWrapperProps {
   children: ReactNode;
@@ -12,5 +14,9 @@ interface ContextProviderWrapperProps {
 export function ContextProviderWrapper({
   children,
 }: ContextProviderWrapperProps) {
-  return <WineProvider>{children}</WineProvider>;
+  return (
+    <ConsentProvider>
+      <WineProvider>{children}</WineProvider>
+    </ConsentProvider>
+  );
 }
