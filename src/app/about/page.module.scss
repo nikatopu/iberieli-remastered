@@ -151,6 +151,13 @@
   font-size: 0.875em;
   font-weight: 500;
   letter-spacing: 0.03em;
+  text-decoration: none;
+  transition: background-color 0.2s ease, color 0.2s ease;
+
+  &:hover {
+    background-color: var(--secondary-gold);
+    color: var(--text-primary);
+  }
 }
 
 .gallery {

@@ -1,9 +1,13 @@
 import Card from "@/components/atoms/Card";
 import Button from "@/components/atoms/Button";
 import { companyInfo } from "@/data/company";
+import { getVisibleDistributors } from "@/lib/distributors";
 import style from "./page.module.scss";
 import Link from "next/link";
 import AnimateIn from "@/components/atoms/AnimateIn";
+
+/** The market list is admin-managed, so don't serve a build-time snapshot forever. */
+export const revalidate = 60;
 
 export const metadata = {
   title: "About Us",
@@ -31,7 +35,10 @@ export const metadata = {
   alternates: { canonical: "https://www.iberieli.com/about" },
 };
 
-export default function AboutPage() {
+export default async function AboutPage() {
+  // The market list is whatever the admin panel currently has distributors for,
+  // so a country never appears here without somewhere to actually buy the wine.
+  const distributors = await getVisibleDistributors().catch(() => []);
   return (
     <div className={style.aboutPage}>
       <div className="container">
@@ -92,17 +99,26 @@ export default function AboutPage() {
               <h2>Our Business</h2>
               <p>{companyInfo.business}</p>
 
-              <div className={style.markets}>
-                <h3>Global Presence</h3>
-                <p>Currently selling in:</p>
-                <div className={style.marketList}>
-                  {companyInfo.markets.map((market) => (
-                    <span key={market} className={style.market}>
-                      {market}
-                    </span>
-                  ))}
+              {distributors.length > 0 && (
+                <div className={style.markets}>
+                  <h3>Global Presence</h3>
+                  <p>Currently selling in:</p>
+                  <div className={style.marketList}>
+                    {distributors.map((d) => (
+                      <a
+                        key={d.id}
+                        href={d.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={style.market}
+                        title={`Buy in ${d.countryName} via ${d.name ?? "our local importer"}`}
+                      >
+                        {d.countryName}
+                      </a>
+                    ))}
+                  </div>
                 </div>
-              </div>
+              )}
             </Card>
           </section>
         </AnimateIn>

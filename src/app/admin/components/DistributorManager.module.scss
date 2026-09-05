@@ -1,0 +1,419 @@
+.manager {
+  width: 100%;
+}
+
+.sectionHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--spacing-lg);
+  margin-bottom: var(--spacing-xl);
+  padding-bottom: var(--spacing-md);
+  border-bottom: 1px solid var(--border-light);
+
+  h2 {
+    color: var(--primary-wine);
+    font-size: 1.5em;
+    letter-spacing: -0.01em;
+    margin: 0;
+  }
+
+  @media (max-width: 600px) {
+    flex-direction: column;
+  }
+}
+
+.hint {
+  margin: var(--spacing-xs) 0 0;
+  font-size: 0.85em;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  max-width: 56ch;
+}
+
+.addBtn {
+  flex-shrink: 0;
+  padding: var(--spacing-sm) var(--spacing-lg);
+  background: var(--primary-wine);
+  color: white;
+  border: 1px solid var(--primary-wine);
+  border-radius: 0.25em;
+  font-family: var(--font-secondary);
+  font-size: 0.9em;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+
+  &:hover {
+    opacity: 0.85;
+  }
+}
+
+/* --- add / edit form ----------------------------------------------------- */
+
+.editCard {
+  margin-bottom: var(--spacing-xl);
+  padding: var(--spacing-lg);
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-light);
+  border-left: 3px solid var(--primary-wine);
+  border-radius: 0.375em;
+
+  h3 {
+    color: var(--primary-wine);
+    font-size: 1.1em;
+    margin-bottom: var(--spacing-md);
+  }
+}
+
+.formGrid {
+  display: grid;
+  grid-template-columns: minmax(180px, 1fr) minmax(220px, 2fr);
+  gap: var(--spacing-md);
+
+  @media (max-width: 700px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+
+  label {
+    font-family: var(--font-secondary);
+    font-size: 0.8em;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+  }
+
+  /* The optional distributor name spans the full width under the pair above. */
+  &:last-child {
+    grid-column: 1 / -1;
+  }
+}
+
+.optional {
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: 0;
+  opacity: 0.7;
+}
+
+.input,
+.select {
+  width: 100%;
+  padding: var(--spacing-sm);
+  background: var(--bg-primary);
+  border: 1px solid var(--border-light);
+  border-radius: 0.25em;
+  font-family: var(--font-ui);
+  font-size: 0.95em;
+  color: var(--text-primary);
+
+  &:focus {
+    outline: none;
+    border-color: var(--primary-wine);
+  }
+
+  &:disabled {
+    opacity: 0.6;
+  }
+}
+
+.formActions {
+  display: flex;
+  gap: var(--spacing-sm);
+  margin-top: var(--spacing-lg);
+
+  @media (max-width: 600px) {
+    flex-direction: column;
+  }
+}
+
+.saveBtn {
+  padding: var(--spacing-sm) var(--spacing-xl);
+  background: var(--primary-wine);
+  color: white;
+  border: 1px solid var(--primary-wine);
+  border-radius: 0.25em;
+  font-family: var(--font-secondary);
+  font-size: 0.95em;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+
+  &:hover:not(:disabled) {
+    opacity: 0.85;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+.cancelBtn {
+  padding: var(--spacing-sm) var(--spacing-xl);
+  background: transparent;
+  color: var(--text-primary);
+  border: 1px solid var(--border-light);
+  border-radius: 0.25em;
+  font-family: var(--font-secondary);
+  font-size: 0.95em;
+  cursor: pointer;
+  transition: border-color 0.2s ease, color 0.2s ease;
+
+  &:hover:not(:disabled) {
+    border-color: var(--primary-wine);
+    color: var(--primary-wine);
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+/* --- list ---------------------------------------------------------------- */
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: var(--spacing-lg);
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  padding: var(--spacing-lg);
+  background: var(--bg-primary);
+  border: 1px solid var(--border-light);
+  border-radius: 0.375em;
+  transition: border-color 0.2s ease, opacity 0.2s ease;
+
+  &:hover {
+    border-color: rgba(114, 47, 55, 0.35);
+  }
+}
+
+.cardHidden {
+  opacity: 0.6;
+}
+
+.cardHead {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  margin-bottom: var(--spacing-md);
+}
+
+.flag {
+  font-size: 1.4em;
+  line-height: 1;
+}
+
+.cardCountry {
+  color: var(--primary-wine);
+  font-size: 1.15em;
+  margin: 0;
+}
+
+.cardDetails {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+  flex-grow: 1;
+  margin-bottom: var(--spacing-md);
+}
+
+.detailItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: var(--spacing-sm);
+  font-size: 0.9em;
+
+  strong {
+    font-family: var(--font-secondary);
+    font-size: 0.85em;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    flex-shrink: 0;
+  }
+
+  span,
+  a {
+    text-align: right;
+    word-break: break-word;
+  }
+}
+
+.cardFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding-top: var(--spacing-md);
+  border-top: 1px solid var(--border-light);
+  flex-wrap: wrap;
+}
+
+.visibilityToggle {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  font-size: 0.85em;
+  color: var(--text-secondary);
+}
+
+.toggleSwitch {
+  position: relative;
+  width: 48px;
+  height: 26px;
+  border-radius: 13px;
+  border: none;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background-color 0.2s ease;
+
+  &.toggleOn {
+    background: #16a34a;
+  }
+
+  &.toggleOff {
+    background: var(--border-light);
+  }
+}
+
+.toggleThumb {
+  position: absolute;
+  top: 3px;
+  width: 20px;
+  height: 20px;
+  background: white;
+  border-radius: 50%;
+  transition: left 0.2s ease;
+
+  .toggleOn & {
+    left: 25px;
+  }
+
+  .toggleOff & {
+    left: 3px;
+  }
+}
+
+.cardActions {
+  display: flex;
+  gap: var(--spacing-sm);
+}
+
+.editBtn {
+  padding: var(--spacing-xs) var(--spacing-md);
+  background: transparent;
+  color: var(--primary-wine);
+  border: 1px solid var(--primary-wine);
+  border-radius: 0.25em;
+  font-family: var(--font-secondary);
+  font-size: 0.85em;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+
+  &:hover {
+    background: var(--primary-wine);
+    color: white;
+  }
+}
+
+.deleteBtn {
+  padding: var(--spacing-xs) var(--spacing-md);
+  background: transparent;
+  color: #dc2626;
+  border: 1px solid #dc2626;
+  border-radius: 0.25em;
+  font-family: var(--font-secondary);
+  font-size: 0.85em;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+
+  &:hover {
+    background: #dc2626;
+    color: white;
+  }
+}
+
+/* --- states -------------------------------------------------------------- */
+
+.loading,
+.empty {
+  text-align: center;
+  padding: var(--spacing-xxl) var(--spacing-md);
+  color: var(--text-secondary);
+  line-height: 1.7;
+}
+
+/* --- delete confirmation ------------------------------------------------- */
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: var(--spacing-lg);
+}
+
+.confirmModal {
+  background: var(--bg-primary);
+  border-radius: 0.5em;
+  padding: var(--spacing-xl);
+  max-width: 420px;
+  width: 100%;
+  border-top: 4px solid #dc2626;
+
+  h3 {
+    color: #dc2626;
+    font-size: 1.3em;
+    margin-bottom: var(--spacing-md);
+  }
+
+  p {
+    color: var(--text-secondary);
+    line-height: 1.7;
+    margin-bottom: var(--spacing-xl);
+  }
+}
+
+.confirmActions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.confirmDeleteBtn {
+  width: 100%;
+  padding: var(--spacing-sm) var(--spacing-md);
+  background: #dc2626;
+  color: white;
+  border: none;
+  border-radius: 0.25em;
+  font-family: var(--font-secondary);
+  font-size: 1em;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+
+  &:hover {
+    background: #b91c1c;
+  }
+}

@@ -84,12 +84,29 @@
   h1 {
     color: var(--primary-wine);
     font-size: 2.5em;
-    margin-bottom: var(--spacing-lg);
+    margin-bottom: 0;
 
     @media (max-width: 768px) {
       font-size: 2em;
       text-align: center;
     }
+  }
+}
+
+/* Title and the primary "Order This Wine" call to action share a row on
+   desktop, and stack into a full-width button on narrow screens. */
+.titleRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-lg);
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--spacing-sm);
   }
 }
 

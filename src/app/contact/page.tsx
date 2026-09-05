@@ -4,6 +4,7 @@ import { contacts } from "@/lib/schema";
 import { eq } from "drizzle-orm";
 import style from "./page.module.scss";
 import AnimateIn from "@/components/atoms/AnimateIn";
+import { WhereToBuySection } from "@/components/organisms/Distribution";
 
 export const metadata = {
   title: "Contact Us",
@@ -71,6 +72,10 @@ export default async function ContactPage() {
               business inquiries and wine orders.
             </p>
           </header>
+        </AnimateIn>
+
+        <AnimateIn preset="fadeUp" eager delay={0.1}>
+          <WhereToBuySection />
         </AnimateIn>
 
         {contactList.length > 0 && (

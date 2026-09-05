@@ -7,3 +7,4 @@ export { default as AdminToastProvider } from "./AdminToastProvider";
 export { default as LoadingSpinner } from "./ui/LoadingSpinner";
 export { default as ErrorMessage } from "./ui/ErrorMessage";
 export { default as ContactManager } from "./ContactManager";
+export { default as DistributorManager } from "./DistributorManager";

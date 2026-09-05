@@ -7,13 +7,14 @@ import {
   WineList,
   WineEditForm,
   ContactManager,
+  DistributorManager,
   LoadingSpinner,
   ErrorMessage,
   AdminToastProvider,
 } from "../components";
 import styles from "./page.module.scss";
 
-type ActiveSection = "wines" | "contacts";
+type ActiveSection = "wines" | "contacts" | "distributors";
 
 export default function AdminDashboard() {
   const { isLoggedIn, isLoading: authLoading, logout } = useAdminAuth();
@@ -77,11 +78,20 @@ export default function AdminDashboard() {
             >
               Contacts
             </button>
+            <button
+              type="button"
+              className={`${styles.toggleBtn} ${activeSection === "distributors" ? styles.toggleBtnActive : ""}`}
+              onClick={() => setActiveSection("distributors")}
+            >
+              Distributors
+            </button>
           </div>
 
           <div className={styles.content}>
             {activeSection === "contacts" ? (
               <ContactManager />
+            ) : activeSection === "distributors" ? (
+              <DistributorManager />
             ) : selectedWine ? (
               <WineEditForm
                 wine={selectedWine}

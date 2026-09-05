@@ -10,6 +10,7 @@ import { mapDbWineToFrontend } from "@/lib/wineMapping";
 import { IWine } from "@/data/types";
 import style from "./page.module.scss";
 import AnimateIn from "@/components/atoms/AnimateIn";
+import { OrderWineButton } from "@/components/organisms/Distribution";
 
 interface Props {
   params: Promise<{ id: string }>;
@@ -109,7 +110,10 @@ export default async function WinePage({ params }: Props) {
               <img src={wine.image} alt={wine.name} className={style.image} />
             </div>
             <div className={style.wineInfo}>
-              <h1>{wine.name}</h1>
+              <div className={style.titleRow}>
+                <h1>{wine.name}</h1>
+                <OrderWineButton wineName={wine.name} />
+              </div>
               <div className={style.basicInfo}>
                 <div className={style.infoItem}>
                   <strong>Location:</strong> {wine.location}

@@ -48,7 +48,6 @@ export interface ICompanyInfo {
   };
   story: string;
   business: string;
-  markets: string[];
 }
 
 export interface IContact {

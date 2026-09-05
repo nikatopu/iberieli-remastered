@@ -1,0 +1,231 @@
+/* ---------------------------------------------------------------------------
+   Shared distribution panel — rendered inside the wine-page modal and inline
+   on the contact page. Only spacing and chrome differ between the variants.
+--------------------------------------------------------------------------- */
+
+.panel {
+  display: flex;
+  flex-direction: column;
+}
+
+.panel--modal {
+  gap: var(--spacing-sm);
+}
+
+.panel--section {
+  gap: var(--spacing-sm);
+}
+
+.eyebrow {
+  font-family: var(--font-secondary);
+  font-size: 0.75em;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--secondary-gold);
+  margin-bottom: 0;
+}
+
+.heading {
+  font-size: 1.5em;
+  color: var(--primary-wine);
+  margin-bottom: var(--spacing-xs);
+
+  .panel--section & {
+    font-size: 1.75em;
+  }
+
+  @media (max-width: 600px) {
+    font-size: 1.3em;
+  }
+}
+
+.body {
+  color: var(--text-secondary);
+  line-height: 1.7;
+  margin-bottom: var(--spacing-xs);
+  max-width: 62ch;
+}
+
+.primaryAction {
+  display: inline-block;
+  align-self: flex-start;
+  margin-top: var(--spacing-sm);
+  padding: var(--spacing-sm) var(--spacing-xl);
+  background-color: var(--primary-wine);
+  color: var(--text-light);
+  border-radius: 0.25em;
+  font-family: var(--font-secondary);
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  text-decoration: none;
+  transition: background-color 0.2s ease;
+
+  &:hover {
+    background-color: #5c2630;
+    color: var(--text-light);
+  }
+
+  @media (max-width: 600px) {
+    align-self: stretch;
+    text-align: center;
+  }
+}
+
+.fineprint {
+  font-size: 0.8em;
+  color: var(--text-secondary);
+  opacity: 0.75;
+  margin-bottom: 0;
+}
+
+.secondaryRow {
+  margin-top: var(--spacing-xs);
+}
+
+.secondaryAction {
+  font-size: 0.9em;
+  color: var(--primary-wine);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+
+  &:hover {
+    color: var(--secondary-gold);
+  }
+}
+
+/* --- country picker ------------------------------------------------------ */
+
+.picker {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+  margin-top: var(--spacing-md);
+  padding-top: var(--spacing-md);
+  border-top: 1px solid var(--border-light);
+
+  label {
+    font-family: var(--font-secondary);
+    font-size: 0.8em;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+  }
+}
+
+.select {
+  width: 100%;
+  max-width: 22em;
+  padding: var(--spacing-sm);
+  border: 1px solid var(--border-light);
+  border-radius: 0.25em;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-ui);
+  font-size: 0.95em;
+  cursor: pointer;
+
+  &:focus {
+    outline: none;
+    border-color: var(--primary-wine);
+  }
+}
+
+/* --- loading ------------------------------------------------------------- */
+
+.loading {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-lg) 0;
+  color: var(--text-secondary);
+
+  p {
+    margin-bottom: 0;
+  }
+}
+
+.spinner {
+  width: 1.1em;
+  height: 1.1em;
+  border: 2px solid var(--border-light);
+  border-top-color: var(--primary-wine);
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  flex-shrink: 0;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .spinner {
+    animation-duration: 2.5s;
+  }
+}
+
+/* --- coverage list ------------------------------------------------------- */
+
+.coverage {
+  margin-top: var(--spacing-md);
+  padding-top: var(--spacing-md);
+  border-top: 1px solid var(--border-light);
+}
+
+.coverageTitle {
+  font-family: var(--font-secondary);
+  font-size: 0.8em;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  margin-bottom: var(--spacing-sm);
+}
+
+.coverageList {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: var(--spacing-xs);
+}
+
+.coverageItem {
+  display: flex;
+  align-items: baseline;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border: 1px solid transparent;
+  border-radius: 0.25em;
+  text-decoration: none;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+
+  &:hover {
+    background-color: var(--bg-secondary);
+    border-color: var(--border-light);
+  }
+}
+
+.coverageItemActive {
+  border-color: var(--secondary-gold);
+  background-color: rgba(212, 175, 55, 0.08);
+}
+
+.coverageFlag {
+  font-size: 1.05em;
+  line-height: 1;
+}
+
+.coverageCountry {
+  font-family: var(--font-secondary);
+  font-weight: 600;
+  color: var(--text-primary);
+  font-size: 0.95em;
+}
+
+.coverageName {
+  font-size: 0.8em;
+  color: var(--text-secondary);
+  margin-left: auto;
+  text-align: right;
+}

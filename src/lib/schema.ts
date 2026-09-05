@@ -65,9 +65,21 @@ export const contacts = pgTable("contacts", {
   updatedAt: timestamp("updated_at").defaultNow(),
 });
 
+export const distributors = pgTable("distributors", {
+  id: serial("id").primaryKey(),
+  countryCode: text("country_code").unique().notNull(),
+  url: text("url").notNull(),
+  name: text("name"),
+  visible: boolean("visible").default(true).notNull(),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+});
+
 export type Wine = typeof wines.$inferSelect;
 export type NewWine = typeof wines.$inferInsert;
 export type AdminUser = typeof adminUsers.$inferSelect;
 export type NewAdminUser = typeof adminUsers.$inferInsert;
 export type Contact = typeof contacts.$inferSelect;
 export type NewContact = typeof contacts.$inferInsert;
+export type Distributor = typeof distributors.$inferSelect;
+export type NewDistributor = typeof distributors.$inferInsert;
